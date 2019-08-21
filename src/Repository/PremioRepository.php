@@ -19,6 +19,11 @@ class PremioRepository extends ServiceEntityRepository
         parent::__construct($registry, Premio::class);
     }
 
+
+    public function getAllPremios(){
+        return $this->findAll();
+    }
+
 //    /**
 //     * @return Premio[] Returns an array of Premio objects
 //     */

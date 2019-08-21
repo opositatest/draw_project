@@ -22,13 +22,11 @@ class UsuarioService
 {
     private $entityManager;
     private $logger;
-    private $usuarioClass;
 
-    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger, $usuarioClass)
+    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
-        $this->usuarioClass = $usuarioClass;
     }
 
     /**

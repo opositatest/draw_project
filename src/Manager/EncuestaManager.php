@@ -33,8 +33,8 @@ class EncuestaManager{
         return $this->encuestaRepository->contarEncuestas();
     }
 
-    public function saveComment($text, $encuestaRaw){
-        $encuesta = $this->encuestaRepository->find($encuestaRaw['id']);
+    public function saveComment($text, $id){
+        $encuesta = $this->encuestaRepository->find($id);
 
         $comment = new Comentario();
         $comment->setEncuesta($encuesta);

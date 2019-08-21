@@ -19,32 +19,14 @@ class UsuarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Usuario::class);
     }
 
-//    /**
-//     * @return Usuario[] Returns an array of Usuario objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function getOneUsuarioBy($criteria)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->findOneBy($criteria);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Usuario
+    public function addUser($user)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+        $em->persist($user);
+        $em->flush();
     }
-    */
 }

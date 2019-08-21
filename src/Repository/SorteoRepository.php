@@ -48,32 +48,24 @@ class SorteoRepository extends ServiceEntityRepository
         return $qb->execute();
     }
 
-//    /**
-//     * @return Sorteo[] Returns an array of Sorteo objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function findSorteoOrderBy($criteria, $order, $limit, $offset)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findBy($criteria,$order,$limit,$offset);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Sorteo
+    public function addSorteo($sorteo)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+
+        $em->persist($sorteo);
+        $em->flush();
     }
-    */
+
+    public function finishSorteo($sorteo)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($sorteo);
+        $em->flush();
+    }
+
 }

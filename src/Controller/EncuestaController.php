@@ -37,7 +37,7 @@ class EncuestaController extends BaseController
         $texto = $request->get('texto');
         $encuesta = $request->get('encuesta');
 
-        $saved = $encuestaManager->saveCommentInEncuesta($texto, $encuesta);
+        $saved = $encuestaManager->saveComment($texto, $encuesta);
 
         dump($saved);
         if ($saved){

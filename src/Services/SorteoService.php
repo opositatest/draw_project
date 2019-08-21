@@ -15,25 +15,23 @@ use App\Entity\Usuario;
 use App\Exceptions\AlreadySubscribedException;
 use App\Exceptions\GanadorNotSettedException;
 use App\Exceptions\PasswordIncorrectException;
+use App\Manager\SorteoManager;
+use App\Manager\UsuarioManager;
 use DateInterval;
-use Doctrine\ORM\EntityManager;
 use Exception;
 use Psr\Log\LoggerInterface;
 
 class SorteoService
 {
-    private $entityManager;
     private $logger;
-    private $usuarioService;
-    private $sorteoClass;
+    private $sorteoManager;
+    private $usuarioManager;
 
-    public function __construct(EntityManager $entityManager, LoggerInterface $logger,
-                                UsuarioService $usuarioService, $sorteoClass)
+    public function __construct(LoggerInterface $logger, SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
     {
-        $this->entityManager = $entityManager;
         $this->logger = $logger;
-        $this->usuarioService = $usuarioService;
-        $this->sorteoClass = $sorteoClass;
+        $this->sorteoManager = $sorteoManager;
+        $this->usuarioManager = $usuarioManager;
     }
 
     /**
@@ -57,7 +55,7 @@ class SorteoService
                 // SORTEO ACTIVO SIN GANADOR ---> añado usuario a sorteo
 
                 try {
-                    $this->usuarioService->addUser($userData, $sorteo_actual);
+                    $this->usuarioManager->addUser($userData, $sorteo_actual);
                     $respuesta = "Te has inscrito al sorteo. ¡Mucha suerte!";
                     $titulo ="ENHORABUENA";
                     $data = [$titulo, $respuesta];
@@ -77,15 +75,15 @@ class SorteoService
                 // SORTEO NO ACTIVO (FECHA MENOR) Y CON GANADOR ---> creo sorteo/añado usuario
 
                 /** @var Sorteo $newSorteo */
-                $newSorteo = $this->createSorteo($fecha_sorteo);
+                $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
 
                 return $this->beforeAdding($newSorteo, $userData);
             } else {
                 // SORTEO NO ACTIVO (FECHA MENOR) Y SIN GANADOR ---> ejecuto sorteo/creo sorteo/añado usuario
-                $this->runSorteo($sorteo_actual);
+                $this->sorteoManager->runSorteo($sorteo_actual);
 
                 /** @var Sorteo $newSorteo */
-                $newSorteo = $this->createSorteo($fecha_sorteo);
+                $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
 
                 return $this->beforeAdding($newSorteo, $userData);
             }
@@ -152,7 +150,7 @@ class SorteoService
     {
         try {
             if ($newSorteo) {
-                $this->usuarioService->addUser($userData, $newSorteo);
+                $this->usuarioManager->addUser($userData, $newSorteo);
             }
             $respuesta = "Atención: El sorteo anterior ha caducado. Te has inscrito a un nuevo sorteo. ¡Mucha suerte!";
             $titulo ="ENHORABUENA";
