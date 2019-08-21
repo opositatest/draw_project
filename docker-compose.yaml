@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - db_meeting:db_meeting
+    environment:
+      PMA_ARBITRARY: 0
+      PMA_HOST: db_meeting
+      PMA_USER: root
+      PMA_PASSWORD: hormiga
+    ports:
+      - 9089:80
+    container_name: phpmyadmin_meeting
+  db_meeting:
+    image: mysql:5.7
+    volumes:
+      - "/var/lib/mysql_meeting:/var/lib/mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hormiga
+      MYSQL_DATABASE: meeting
+      MYSQL_USER: root
+      MYSQL_PASSWORD: hormiga
+    expose:
+      - "3306"
+    container_name: db_meeting
+  php:
+    build: .
+    volumes:
+      - .:/var/www/html
+    restart: always
+    links:
+      - db_meeting:db_meeting
+    environment:
+      - APP_DEBUG=1
+      - APP_ENV=dev
+    container_name: meeting_php
+  nginx:
+    image: opositatest/nginx:sf4
+    ports:
+      - 9088:80
+    links:
+      - php:php
+    container_name: nginx_meeting
+    environment:
+      - APP_ENV=dev
+      - HTTPS_FORCE=off
+    volumes:
+      - .:/var/www/html/:ro
+    restart: always
+
+networks:
+  default:
+    external:
+      name: meeting
