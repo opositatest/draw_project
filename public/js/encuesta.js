@@ -286,23 +286,34 @@ function imprimirComentarios(){
 //llamada ajax
 function saveComment(){
     var val = $("#coment").val();
-    var data = {"texto": val, "encuesta":encuesta};
-    $.ajax({
-        data:  data, //datos que se envian a traves de ajax
-        url:   '/encuesta/comment/save', //archivo que recibe la peticion
-        type:  'post', //método de envio
-        beforeSend: function () {
-            console.log("Procesando, espere por favor...");
-        },
-        success:  function (respuesta) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-            if(respuesta){
-                alert(respuesta);
-            } else {
-                $new =  parseInt($("#number").text()) + 1;
-                $("#number").text($new);
-            }
+    const data = {"texto": val, "encuesta":encuesta};
+
+    const xmlRequest = new XMLHttpRequest();
+    xmlRequest.open("POST", '/encuesta/comment/save', true)
+    xmlRequest.setRequestHeader('Content-type', 'application/json')
+    xmlRequest.onreadystatechange = function(){
+        if(xmlRequest.status === 200 && xmlRequest.readyState === 4){
+            alert("all good");
         }
-    });
+    }
+    xmlRequest.send(data);
+
+    // $.ajax({
+    //     data:  data, //datos que se envian a traves de ajax
+    //     url:   '/encuesta/comment/save', //archivo que recibe la peticion
+    //     type:  'post', //método de envio
+    //     beforeSend: function () {
+    //         console.log("Procesando, espere por favor...");
+    //     },
+    //     success:  function (respuesta) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+    //         if(respuesta){
+    //             alert(respuesta);
+    //         } else {
+    //             $new =  parseInt($("#number").text()) + 1;
+    //             $("#number").text($new);
+    //         }
+    //     }
+    // });
 }
 
 //funcion que actualiza el numero que se muestra de comentarios totales

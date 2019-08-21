@@ -47,6 +47,14 @@ class EncuestaRepository extends ServiceEntityRepository
         return $qb->execute();
     }
 
+    public function getEncuestaById($id){
+        return $this->find($id);
+    }
+
+    public function getEncuestasOrderBy($criteria,$order,$limit,$offset){
+        $em = $this->getEntityManager();
+    }
+
 //    /**
 //     * @return Encuesta[] Returns an array of Encuesta objects
 //     */

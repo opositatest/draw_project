@@ -19,6 +19,14 @@ class ComentarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Comentario::class);
     }
 
+
+    public function addComentario($comentario)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($comentario);
+        $em->flush();
+    }
+
 //    /**
 //     * @return Comentario[] Returns an array of Comentario objects
 //     */
