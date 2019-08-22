@@ -39,7 +39,6 @@ class EncuestaController extends BaseController
 
         $saved = $encuestaManager->saveComment($texto, $encuesta);
 
-        dump($saved);
         if ($saved){
             return new Response();
         } else {

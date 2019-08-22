@@ -47,7 +47,6 @@ class SorteoController extends BaseController
         $userData = [$name, $mail, $pass];
 
 
-
         $sorteo = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 0);
 
         /** @var Sorteo $sorteoActual */
@@ -73,7 +72,7 @@ class SorteoController extends BaseController
         $op = $request->query->get('operation');
         $offset = $request->query->get('offset');
 
-        if ($op == 'next'){
+        if ($op == 'next') {
             $offset += self::NUM_SORTEOS_INDEX;
         } elseif ($op == 'prev')
             $offset -= self::NUM_SORTEOS_INDEX;
@@ -91,22 +90,10 @@ class SorteoController extends BaseController
     /**
      * @route ("/sorteo/area-personal", name="profile")
      */
-    public function comprobarSorteoAction(){
+    public function comprobarSorteoAction()
+    {
         return $this->render('encuesta/comprobarSorteo.html.twig');
     }
 
 
-//TODO: pass this to the manager, dont know which one yet
-    private function getEncuesta() {
-        $encuestaService = $this->get('encuesta_service');
-
-        $last = $encuestaService->getEncuestasOrderby(array(), array('id' => 'ASC'), 1, 0);
-
-        /** @var Encuesta $encuesta */
-        $encuesta= $last[0];
-
-        $jsonContent = $this->serializar($encuesta);
-
-        return $jsonContent;
-    }
 }
