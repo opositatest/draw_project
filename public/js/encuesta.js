@@ -91,6 +91,7 @@ function imprimirPreguntas(id_encuesta, pos, pos_pregunta){
 // funcion que imprime el resultado
 
 function imprimirSolucion(pos){
+    console.log('four');
     for (var i = 0; i < encuesta.resultados.length; i++){
         if ( (encuesta.resultados[i].minVal)  <= (this.puntuacion) && (this.puntuacion) <= (encuesta.resultados[i].maxVal) ){
             var solucion = encuesta.resultados[i].text;
@@ -111,21 +112,6 @@ function imprimirSolucion(pos){
             result.innerHTML = explicacion;
             $(result).hide().appendTo("#pregunta").fadeIn(1000);
 
-            var redo = document.createElement("a");
-            redo.setAttribute("type", "button");
-            redo.setAttribute("class", "btn btn-danger");
-            redo.setAttribute("style", "padding: 15px;");
-            redo.setAttribute("href", "/encuesta/" + encuesta.id);
-            redo.innerHTML = "Volver a jugar";
-
-            var btnSorteo = document.createElement("button");
-            btnSorteo.setAttribute("type", "button");
-            btnSorteo.setAttribute("class", "btn btn-warning btn-lg btn-mar");
-            btnSorteo.setAttribute("data-toggle", "modal");
-            btnSorteo.setAttribute("data-target", "#myModal");
-            btnSorteo.setAttribute("onclick", "limpiarModal()");
-            btnSorteo.innerHTML = "Suscríbete al sorteo";
-
             var col = document.createElement("div");
             col.setAttribute("class", "col-sm-6 justify-content-center text-sm-right");
             col.setAttribute("id", "colRedo");
@@ -136,12 +122,26 @@ function imprimirSolucion(pos){
             col1.setAttribute("id", "colSorteo");
             $(col1).appendTo("#div_respuestas");
 
-            $(redo).hide().appendTo("#colRedo").fadeIn(1000);
-            $(btnSorteo).hide().appendTo("#colSorteo").fadeIn(1000);
-
             progress(100);
         }
     }
+    var redo = document.createElement("a");
+    redo.setAttribute("type", "button");
+    redo.setAttribute("class", "btn btn-danger");
+    redo.setAttribute("style", "padding: 15px;");
+    redo.setAttribute("href", "/encuesta/" + encuesta.id);
+    redo.innerHTML = "Volver a jugar";
+
+    var btnSorteo = document.createElement("button");
+    btnSorteo.setAttribute("type", "button");
+    btnSorteo.setAttribute("class", "btn btn-warning btn-lg btn-mar");
+    btnSorteo.setAttribute("data-toggle", "modal");
+    btnSorteo.setAttribute("data-target", "#myModal");
+    btnSorteo.setAttribute("onclick", "limpiarModal()");
+    btnSorteo.innerHTML = "Suscríbete al sorteo";
+
+    $(redo).hide().appendTo("#colRedo").fadeIn(1000);
+    $(btnSorteo).hide().appendTo("#colSorteo").fadeIn(1000);
 }
 
 // funcion que realizan los botones de las respuestas

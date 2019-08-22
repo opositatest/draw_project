@@ -85,15 +85,4 @@ class SorteoController extends BaseController
 
         return new JsonResponse($data);
     }
-
-
-    /**
-     * @route ("/sorteo/area-personal", name="profile")
-     */
-    public function comprobarSorteoAction()
-    {
-        return $this->render('sorteo/comprobarSorteo.html.twig');
-    }
-
-
 }
