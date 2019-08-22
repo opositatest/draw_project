@@ -96,7 +96,7 @@ class SorteoController extends BaseController
     }
 
 
-//TODO: pass this to the manager, dont knwo which one yet
+//TODO: pass this to the manager, dont know which one yet
     private function getEncuesta() {
         $encuestaService = $this->get('encuesta_service');
 

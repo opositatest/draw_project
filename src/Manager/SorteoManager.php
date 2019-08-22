@@ -29,6 +29,11 @@ class SorteoManager{
         return $this->sorteoRepository->findSorteoOrderBy($criteria,$order,$limit,$offset);
     }
 
+    public function getSorteosBetween($min, $max)
+    {
+        return $this->sorteoRepository->findBetween($min, $max);
+    }
+
     public function contarSorteos()
     {
         return $this->sorteoRepository->contarSorteos();

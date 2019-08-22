@@ -91,55 +91,6 @@ class SorteoService
     }
 
 
-
-    private function createSorteo($fecha_sorteo)
-    {
-        try {
-            $newFecha = $fecha_sorteo->add(new DateInterval('P1M'));
-
-            $premios = $this->entityManager->getRepository(Premio::class)->findAll();
-            /** @var Premio $randomPremio */
-            $randomPremio = $premios[rand(0, count($premios) - 1)];
-
-            $newSorteo = new Sorteo();
-            $newSorteo->setPremio($randomPremio);
-            $newSorteo->setImg($randomPremio->getImagen());
-            $newSorteo->setFecha($newFecha);
-
-            $this->entityManager->persist($newSorteo);
-            $this->entityManager->flush();
-
-            return $newSorteo;
-        } catch (Exception $e) {
-            $this->logger->alert($e->getMessage());
-        }
-    }
-
-    private function runSorteo(Sorteo $sorteo_actual)
-    {
-        $usuarios_sorteo = $sorteo_actual->getUsuarios();
-        try{
-            if (count($usuarios_sorteo) > 0) {
-                if (count($usuarios_sorteo) > 0){
-                    $random = rand(0, count($usuarios_sorteo) - 1);
-                    /** @var Usuario $ganador */
-                    $ganador = $usuarios_sorteo[$random];
-
-                    $sorteo_actual->setGanador($ganador);
-                    $this->entityManager->persist($sorteo_actual);
-                }
-            } else if (count($usuarios_sorteo) == 0){
-                $this->logger->info('No hay usuarios.');
-            }
-            $this->entityManager->flush();
-        }catch (GanadorNotSettedException $gnse) {
-            $this->logger->alert($gnse->getMessage());
-        }catch (Exception $e) {
-            $this->logger->info($e->getMessage());
-        }
-
-    }
-
     /**
      * @param $newSorteo
      * @param $userData
@@ -168,19 +119,4 @@ class SorteoService
         return $data;
     }
 
-
-    public function getSorteosOrderby($criteria, $order, $limit, $offset)
-    {
-    return $this->entityManager->getRepository($this->sorteoClass)->findBy($criteria, $order, $limit, $offset);
-    }
-
-    public function getSorteosBetween($min, $max)
-    {
-        return $this->entityManager->getRepository($this->sorteoClass)->findBetween($min, $max);
-    }
-
-    public function contarSorteos()
-    {
-        return $this->entityManager->getRepository($this->sorteoClass)->contarSorteos();
-    }
 }

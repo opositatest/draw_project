@@ -29,4 +29,10 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->persist($user);
         $em->flush();
     }
+    public function removeFromSorteo($user)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sorteo;
 use App\Entity\Usuario;
+use App\Forms\LoginType;
 use App\Manager\EncuestaManager;
 use App\Manager\SorteoManager;
 use App\Manager\UsuarioManager;
@@ -19,22 +20,19 @@ class UserController extends BaseController{
     /**
      * @Route("/sorteo/login", name="login")
      */
-    public function loginAction(Request $request, UsuarioService $usuarioService, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager){
+    public function loginAction(Request $request, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager){
         $user = new Usuario();
 
-        $form = $this->createFormBuilder($user)
-            ->add('email', EmailType::class, array('label' => 'Email'))
-            ->add('password', PasswordType::class, array('label' => 'Contraseña'))
-            ->add('save', SubmitType::class, array('label' => 'Aceptar'))
-            ->getForm();
+        $form = $this->createForm(LoginType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
 
             /** @var Usuario $usuario */
             $usuario = $usuarioManager->getOneUsuarioBy(array('email' => $user->getEmail()));
-            dump($usuario);
+
             if($usuario) {
                 $sorteos = $usuario->getSorteos();
                 $ganados = $usuario->getSorteosGanados();
