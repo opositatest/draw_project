@@ -91,40 +91,54 @@ function imprimirPreguntas(id_encuesta, pos, pos_pregunta){
 // funcion que imprime el resultado
 
 function imprimirSolucion(pos){
-    console.log('four');
+    const container = window.document.getElementById('father-container');
     for (var i = 0; i < encuesta.resultados.length; i++){
         if ( (encuesta.resultados[i].minVal)  <= (this.puntuacion) && (this.puntuacion) <= (encuesta.resultados[i].maxVal) ){
+            console.log("well hello there");
+            container.className = 'd-flex flex-column';
+            const childContainer = window.document.createElement('div');
+            childContainer.className = 'child-container-encuesta';
+            container.appendChild(childContainer);
+            const title = window.document.createElement('div');
+            childContainer.appendChild(title);
+            const imageSolutionContainer = window.document.createElement('div');
+            childContainer.appendChild(imageSolutionContainer);
+            const textSolutionContainer = window.document.createElement('div');
+            childContainer.appendChild(textSolutionContainer);
+
             var solucion = encuesta.resultados[i].text;
-            var ruta = "../../img/" + encuesta.resultados[i].image;
             var explicacion = encuesta.resultados[i].explanation;
 
             var h1 = document.createElement("h1");
             h1.innerHTML = solucion;
-            $(h1).hide().appendTo("#titulo_encuesta").fadeIn(1000);
+            $(h1).hide().appendTo(title).fadeIn(1000);
 
+            var ruta = "../../img/" + encuesta.resultados[i].image;
             var img = document.createElement("img");
             img.setAttribute("src", ruta);
             img.setAttribute("style", "width: 400px; height: 400px");
             img.setAttribute("class", "img-fluid rounded");
-            $(img).hide().appendTo("#img_encuesta").fadeIn(1000);
+            $(img).hide().appendTo(imageSolutionContainer).fadeIn(1000);
 
             var result = document.createElement("p");
+            result.style.margin = "10px"
             result.innerHTML = explicacion;
-            $(result).hide().appendTo("#pregunta").fadeIn(1000);
-
-            var col = document.createElement("div");
-            col.setAttribute("class", "col-sm-6 justify-content-center text-sm-right");
-            col.setAttribute("id", "colRedo");
-            $(col).appendTo("#div_respuestas");
-
-            var col1 = document.createElement("div");
-            col1.setAttribute("class", "col-sm-6 justify-content-center text-sm-left");
-            col1.setAttribute("id", "colSorteo");
-            $(col1).appendTo("#div_respuestas");
+            $(result).hide().appendTo(textSolutionContainer).fadeIn(1000);
 
             progress(100);
         }
     }
+
+    var col = document.createElement("div");
+    col.setAttribute("class", "col-sm-6 justify-content-center text-sm-right");
+    col.setAttribute("id", "colRedo");
+    $(col).appendTo("#div_respuestas");
+
+    var col1 = document.createElement("div");
+    col1.setAttribute("class", "col-sm-6 justify-content-center text-sm-left");
+    col1.setAttribute("id", "colSorteo");
+    $(col1).appendTo("#div_respuestas");
+
     var redo = document.createElement("a");
     redo.setAttribute("type", "button");
     redo.setAttribute("class", "btn btn-danger");

@@ -66,7 +66,8 @@ class SorteoManager{
     public function crearSorteo($fechaSorteo)
     {
         try {
-            $newFecha = $fechaSorteo->add(new DateInterval('P1M'));
+            $today = new \DateTime();
+            $newFecha = $today->add(new DateInterval('P1M'));
 
             $premios = $this->premioRepository->getAllPremios();
             /** @var Premio $randomPremio */

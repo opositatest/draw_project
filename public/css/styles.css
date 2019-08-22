@@ -203,3 +203,12 @@ footer {
     font-size: 1.5em;
     padding: 10px 10px 10px 7px;
 }
+
+.child-container-encuesta{
+    margin: 10px auto;
+    padding: 5px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
