@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Entity\Encuesta;
 use App\Entity\Sorteo;
 use App\Manager\SorteoManager;
 use App\Services\SorteoService;
@@ -21,17 +22,15 @@ class SorteoController extends BaseController
      */
     public function sorteoAction(SorteoManager $sorteoManager)
     {
-
-        $last4 = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), self::NUM_SORTEOS_INDEX, $this->offset);
-        $actual = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 0)[0];
-        $ultimo = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 1)[0];
-        $primero = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'ASC'), 1, 0)[0];
+        $last4 = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], self::NUM_SORTEOS_INDEX, $this->offset);
+        $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0)[0];
+        $ultimo = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 1)[0];
+        $primero = $sorteoManager->getSorteosOrderby([], ['fecha' => 'ASC'], 1, 0)[0];
         $total = $sorteoManager->contarSorteos();
         $size = $total[0]['1'] - 1;
 
-
-        return $this->render('sorteo/sorteo.html.twig', array('historial' => $last4, 'actual' => $actual,
-            'offset' => $this->offset, 'ultimo' => $ultimo->getId(), 'primero' => $primero->getId(), 'total' => $size));
+        return $this->render('sorteo/sorteo.html.twig', ['historial' => $last4, 'actual' => $actual,
+            'offset' => $this->offset, 'ultimo' => $ultimo->getId(), 'primero' => $primero->getId(), 'total' => $size, ]);
     }
 
     /**
@@ -46,15 +45,14 @@ class SorteoController extends BaseController
 
         $userData = [$name, $mail, $pass];
 
-
-        $sorteo = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 0);
+        $sorteo = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
 
         /** @var Sorteo $sorteoActual */
         $sorteoActual = $sorteo[0];
 
         // fecha de hoy
         /** @var datetime $date */
-        $date = new DateTime();
+        $date = new \DateTimeImmutable();
 
         // fecha sorteo_actual
         $fechaSorteo = $sorteoActual->getFecha();
@@ -72,17 +70,22 @@ class SorteoController extends BaseController
         $op = $request->query->get('operation');
         $offset = $request->query->get('offset');
 
-        if ($op == 'next') {
+        if ('next' === $op) {
             $offset += self::NUM_SORTEOS_INDEX;
-        } elseif ($op == 'prev')
+        } elseif ('prev' === $op) {
             $offset -= self::NUM_SORTEOS_INDEX;
+        }
 
-        $show_sorteos = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), self::NUM_SORTEOS_INDEX, $offset);
+        $show_sorteos = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], self::NUM_SORTEOS_INDEX, $offset);
 
         $jsonContent = $this->serializar($show_sorteos);
 
         $data = [$jsonContent, $offset];
 
         return new JsonResponse($data);
+    }
+
+    public function comprobarSorteo(): void
+    {
     }
 }

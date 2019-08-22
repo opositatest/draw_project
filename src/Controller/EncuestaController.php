@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Encuesta;
 use App\Manager\EncuestaManager;
-use App\Services\EncuestaService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,8 @@ class EncuestaController extends BaseController
 
     /**
      * @Route("/encuesta/{id}", name="encuesta")
+     *
+     * @param mixed $id
      */
     public function indexAction($id, EncuestaManager $encuestaManager)
     {
@@ -25,72 +28,83 @@ class EncuestaController extends BaseController
 
         $jsonContent = $this->serializar($encuesta);
 
-        return $this->render('encuesta/encuesta.html.twig', array(
-            'encuesta' => $jsonContent
-        ));
+        return $this->render('encuesta/encuesta.html.twig', [
+            'encuesta' => $jsonContent,
+        ]);
     }
 
     /**
      * @Route ("/encuesta/comment/save", name="comentario")
      */
-    public function saveCommentAction(Request $request, EncuestaManager $encuestaManager){
+    public function saveCommentAction(Request $request, EncuestaManager $encuestaManager)
+    {
         $texto = $request->get('texto');
         $encuesta = $request->get('encuesta');
 
         $saved = $encuestaManager->saveComment($texto, $encuesta);
 
-        if ($saved){
+        if ($saved) {
             return new Response();
-        } else {
-            $respuesta = "Ha habido un error al añadir su comentario. Lo sentimos.";
-            return new Response($respuesta);
         }
+        $respuesta = 'Ha habido un error al añadir su comentario. Lo sentimos.';
+
+        return new Response($respuesta);
     }
 
     /**
      * @Route ("/home", name="home")
      */
-    public function homeAction(EncuestaManager $encuestaManager){
+    public function homeAction(EncuestaManager $encuestaManager)
+    {
         $offset = 0;
 
-        $encuestas = $encuestaManager->getEncuestasOrderBy(array(), array('id' => 'DESC'), self::NUM_ENCUESTAS_INDEX_HOME, $offset);
+        $encuestas = $encuestaManager->getEncuestasOrderBy([], ['id' => 'DESC'], self::NUM_ENCUESTAS_INDEX_HOME, $offset);
 
-        return $this->render('encuesta/home.html.twig', array('encuestas' => $encuestas));
+        return $this->render('encuesta/home.html.twig', ['encuestas' => $encuestas]);
     }
 
     /**
      * @Route ("/encuestas", name="encuestas")
      */
-    public function showEncuestasAction(Request $request, EncuestaManager $encuestaManager){
+    public function showEncuestasAction(Request $request, EncuestaManager $encuestaManager)
+    {
         /** @var Encuesta $ultima */
-        $ultima = $encuestaManager->getEncuestasOrderby(array(), array('id' => 'DESC'), 1, 0)[0];
+        $ultima = $encuestaManager->getEncuestasOrderby([], ['id' => 'DESC'], 1, 0)[0];
         /** @var Encuesta $primera */
-        $primera = $encuestaManager->getEncuestasOrderby(array(), array('id' => 'ASC'), 1, 0)[0];
+        $primera = $encuestaManager->getEncuestasOrderby([], ['id' => 'ASC'], 1, 0)[0];
 
-        $encuestas = $encuestaManager->getEncuestasOrderby(array(), array('id' => 'DESC'),
-            self::NUM_ENCUESTAS_INDEX, $this->offset);
+        $encuestas = $encuestaManager->getEncuestasOrderby(
+            [],
+            ['id' => 'DESC'],
+            self::NUM_ENCUESTAS_INDEX,
+            $this->offset
+        );
 
         $num = $encuestaManager->getTotalEncuestas()[0]['1'];
 
-        return $this->render('encuesta/mostrarEncuestas.html.twig', array('historial' => $encuestas,
-            'offset' => $this->offset, 'ultimo' => $ultima->getId(), 'primero' => $primera->getId(), 'total' => $num));
+        return $this->render('encuesta/mostrarEncuestas.html.twig', ['historial' => $encuestas,
+            'offset' => $this->offset, 'ultimo' => $ultima->getId(), 'primero' => $primera->getId(), 'total' => $num, ]);
     }
 
     /**
      * @Route ("/encuestas/next-prev", name="encuestasN")
+     *
      * @param Request $request
+     *
      * @return Response
      */
-    public function paginationAction(Request $request, EncuestaManager $encuestaManager){
+    public function paginationAction(Request $request, EncuestaManager $encuestaManager)
+    {
         $op = $request->query->get('operation');
         $offset = $request->query->get('offset');
 
-        if ($op == 'next'){
+        if ('next' === $op) {
             $offset += self::NUM_ENCUESTAS_INDEX;
-        } elseif ($op == 'prev')
+        } elseif ('prev' === $op) {
             $offset -= self::NUM_ENCUESTAS_INDEX;
+        }
 
-        $encuestas = $encuestaManager->getEncuestasOrderby(array(), array('id' => 'DESC'), self::NUM_ENCUESTAS_INDEX, $offset);
+        $encuestas = $encuestaManager->getEncuestasOrderby([], ['id' => 'DESC'], self::NUM_ENCUESTAS_INDEX, $offset);
 
         $jsonContent = $this->serializar($encuestas);
 

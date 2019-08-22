@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Usuario;
@@ -7,8 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Usuario|null find($id, $lockMode = null, $lockVersion = null)
- * @method Usuario|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Usuario find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Usuario findOneBy(array $criteria, array $orderBy = null)
  * @method Usuario[]    findAll()
  * @method Usuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -23,13 +25,15 @@ class UsuarioRepository extends ServiceEntityRepository
     {
         return $this->findOneBy($criteria);
     }
-    public function addUser($user)
+
+    public function addUser($user): void
     {
         $em = $this->getEntityManager();
         $em->persist($user);
         $em->flush();
     }
-    public function removeFromSorteo($user)
+
+    public function removeFromSorteo($user): void
     {
         $em = $this->getEntityManager();
         $em->persist($user);

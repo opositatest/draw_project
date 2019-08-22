@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Sorteo;
@@ -8,19 +10,17 @@ use App\Forms\LoginType;
 use App\Manager\EncuestaManager;
 use App\Manager\SorteoManager;
 use App\Manager\UsuarioManager;
-use App\Services\UsuarioService;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends BaseController{
+class UserController extends BaseController
+{
     /**
      * @Route("/sorteo/login", name="login")
      */
-    public function loginAction(Request $request, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager){
+    public function loginAction(Request $request, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
+    {
         $user = new Usuario();
         dump($user);
 
@@ -32,51 +32,52 @@ class UserController extends BaseController{
             $user = $form->getData();
 
             /** @var Usuario $usuario */
-            $usuario = $usuarioManager->getOneUsuarioBy(array('email' => $user->getEmail()));
+            $usuario = $usuarioManager->getOneUsuarioBy(['email' => $user->getEmail()]);
 
-            if($usuario) {
+            if ($usuario) {
                 $sorteos = $usuario->getSorteos();
                 $ganados = $usuario->getSorteosGanados();
                 $hash = $usuario->getPassword();
-                $encuesta = $encuestaManager->getEncuestasOrderBy(array(), array('id' => 'ASC'), 1, 0);
+                $encuesta = $encuestaManager->getEncuestasOrderBy([], ['id' => 'ASC'], 1, 0);
 
-                $actual = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 0);
+                $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
 
                 /** @var Sorteo $sort_actual */
                 $sort_actual = $actual[0];
 
-                if (password_verify($user->getPassword(), $hash)){
-                    return $this->render('sorteo/comprobarSorteo.html.twig', array('usuario' => $usuario, 'sorteos' => $sorteos,
-                        'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId()));
-                } else {
-                    return $this->render('user/login.html.twig', array(
-                        'form' => $form->createView(),
-                        'errorc' => "Contraseña incorrecta",
-                    ));
+                if (password_verify($user->getPassword(), $hash)) {
+                    return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $usuario, 'sorteos' => $sorteos,
+                        'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
                 }
-            } else {
-                return $this->render('user/login.html.twig', array(
-                    'form' => $form->createView(),
-                    'erroru' => "Usuario incorrecto",
-                ));
+
+                return $this->render('user/login.html.twig', [
+                        'form' => $form->createView(),
+                        'errorc' => 'Contraseña incorrecta',
+                    ]);
             }
+
+            return $this->render('user/login.html.twig', [
+                    'form' => $form->createView(),
+                    'erroru' => 'Usuario incorrecto',
+                ]);
         }
 
-        return $this->render('user/login.html.twig', array(
+        return $this->render('user/login.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
      * @Route ("/sorteo/leave", name="borrar")
      */
-    public function borrarUserAction(Request $request, SorteoManager $sorteoManager, UsuarioManager $usuarioManager) {
+    public function borrarUserAction(Request $request, SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
+    {
         //get data from ajax
         $mail = $request->get('mail');
         $pass = $request->get('pass');
         $userData = [$mail, $pass];
 
-        $sort = $sorteoManager->getSorteosOrderby(array(), array('fecha' => 'DESC'), 1, 0);
+        $sort = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
 
         /** @var Sorteo $actual */
         $actual = $sort[0];

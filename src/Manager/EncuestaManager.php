@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace  App\Manager;
 
 use App\Entity\Comentario;
@@ -7,9 +9,9 @@ use App\Repository\ComentarioRepository;
 use App\Repository\EncuestaRepository;
 use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
-use function Symfony\Component\VarDumper\Dumper\esc;
 
-class EncuestaManager{
+class EncuestaManager
+{
     private $encuestaRepository;
     private $comentarioRepository;
     private $logger;
@@ -21,30 +23,36 @@ class EncuestaManager{
         $this->logger = $logger;
     }
 
-    public function getEncuestaById($id){
+    public function getEncuestaById($id)
+    {
         return $this->encuestaRepository->getEncuestaById($id);
     }
 
-    public function getEncuestasOrderBy($criteria, $order, $limit, $offset){
-        return $this->encuestaRepository->findBy($criteria,$order,$limit,$offset);
+    public function getEncuestasOrderBy($criteria, $order, $limit, $offset)
+    {
+        return $this->encuestaRepository->findBy($criteria, $order, $limit, $offset);
     }
 
-    public function getTotalEncuestas(){
+    public function getTotalEncuestas()
+    {
         return $this->encuestaRepository->contarEncuestas();
     }
 
-    public function saveComment($text, $id){
+    public function saveComment($text, $id)
+    {
         $encuesta = $this->encuestaRepository->find($id);
 
         $comment = new Comentario();
         $comment->setEncuesta($encuesta);
         $comment->setText($text);
 
-        try{
+        try {
             $this->comentarioRepository->addComentario($comment);
+
             return true;
-        } catch (ORMException $error){
+        } catch (ORMException $error) {
             $this->logger->alert($error->getMessage());
+
             return false;
         }
     }

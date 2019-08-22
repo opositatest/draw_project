@@ -19,7 +19,6 @@ function cargar(){
 
 // FUNCION QUE SACA LAS PREGUNTAS Y RESPUESTAS
 function imprimirEncuesta(id_encuesta){
-    console.log(encuesta)
     //datos encuesta
     var titulo = encuesta.title;
     // create titulo de la encuesta
@@ -94,7 +93,6 @@ function imprimirSolucion(pos){
     const container = window.document.getElementById('father-container');
     for (var i = 0; i < encuesta.resultados.length; i++){
         if ( (encuesta.resultados[i].minVal)  <= (this.puntuacion) && (this.puntuacion) <= (encuesta.resultados[i].maxVal) ){
-            console.log("well hello there");
             container.className = 'd-flex flex-column';
             const childContainer = window.document.createElement('div');
             childContainer.className = 'child-container-encuesta';

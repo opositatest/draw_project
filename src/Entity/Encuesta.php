@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EncuestaRepository")
@@ -16,18 +17,21 @@ class Encuesta
 {
     /**
      * One Encuesta has Many Preguntas.
+     *
      * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="encuesta")
      */
     private $preguntas;
 
     /**
      * One Encuesta has Many Resultados.
+     *
      * @ORM\OneToMany(targetEntity="Resultado", mappedBy="encuesta")
      */
     private $resultados;
 
     /**
      * One Encuesta has Many Comentarios.
+     *
      * @ORM\OneToMany(targetEntity="Comentario", mappedBy="encuesta")
      */
     private $comentarios;
@@ -49,7 +53,6 @@ class Encuesta
      */
     private $img;
 
-
     /**
      * This unmapped property stores the binary contents of the image file
      * associated with the encuesta.
@@ -62,14 +65,16 @@ class Encuesta
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
-    /*************************************************************************************/
-    /*************************************************************************************/
+    //
+    //
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->preguntas = new ArrayCollection();
         $this->resultados = new ArrayCollection();
         $this->comentarios = new ArrayCollection();
@@ -168,7 +173,7 @@ class Encuesta
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $img = null)
+    public function setImageFile(File $img = null): void
     {
         $this->imageFile = $img;
 
@@ -176,9 +181,8 @@ class Encuesta
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($img) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
-
     }
 
     /**
@@ -192,10 +196,8 @@ class Encuesta
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
-
-
 }

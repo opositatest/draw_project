@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -15,6 +17,7 @@ class Pregunta
 {
     /**
      * Many Preguntas have One Encuesta.
+     *
      * @ORM\ManyToOne(targetEntity="Encuesta", inversedBy="preguntas")
      * @ORM\JoinColumn(name="encuesta_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -22,14 +25,10 @@ class Pregunta
 
     /**
      * One Pregunta has Many Respuestas.
+     *
      * @ORM\OneToMany(targetEntity="Respuesta", mappedBy="pregunta")
      */
     private $respuestas;
-
-
-    public function __construct() {
-        $this->respuestas = new ArrayCollection();
-    }
 
     /**
      * @ORM\Id()
@@ -60,16 +59,23 @@ class Pregunta
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
-    /*************************************************************************************/
-    /*************************************************************************************/
+    public function __construct()
+    {
+        $this->respuestas = new ArrayCollection();
+    }
+
+    //
+    //
 
     public function __toString()
     {
-        $aux = (string)$this->id;
+        $aux = (string) $this->id;
+
         return $aux;
     }
 
@@ -145,7 +151,7 @@ class Pregunta
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $img = null)
+    public function setImageFile(File $img = null): void
     {
         $this->imageFile = $img;
 
@@ -153,9 +159,8 @@ class Pregunta
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($img) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
-
     }
 
     /**
@@ -169,9 +174,8 @@ class Pregunta
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
-
 }

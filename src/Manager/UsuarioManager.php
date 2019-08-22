@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Manager;
 
 use App\Entity\Sorteo;
@@ -11,7 +13,8 @@ use App\Repository\UsuarioRepository;
 use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
 
-class UsuarioManager{
+class UsuarioManager
+{
     private $usuarioRepository;
     private $logger;
 
@@ -21,15 +24,17 @@ class UsuarioManager{
         $this->logger = $logger;
     }
 
-    public function getOneUsuarioBy($criteria){
+    public function getOneUsuarioBy($criteria)
+    {
         return $this->usuarioRepository->getOneUsuarioBy($criteria);
     }
 
-    public function addUser($data, Sorteo $sorteoActual){
+    public function addUser($data, Sorteo $sorteoActual)
+    {
         /** @var Usuario $usuario */
-        $usuario = $this->getOneUsuarioBy(array('email' => $data[1]));
+        $usuario = $this->getOneUsuarioBy(['email' => $data[1]]);
 
-        if (!$usuario){
+        if (!$usuario) {
             $pass = $data[2];
             $coded = password_hash($pass, PASSWORD_BCRYPT);
             $newUser = new Usuario();
@@ -38,13 +43,14 @@ class UsuarioManager{
             $newUser->setPassword($coded);
             $newUser->addSorteo($sorteoActual);
 
-            try{
+            try {
                 $this->usuarioRepository->addUser($newUser);
+
                 return true;
-            }catch (ORMException $e) {
+            } catch (ORMException $e) {
                 $this->logger->alert($e->getMessage());
             }
-        } else if ($usuario) {
+        } elseif ($usuario) {
             // EXISTE USUARIO EN BD ---> compruebo contraseña correcta
 
             $hash = $usuario->getPassword();
@@ -62,19 +68,19 @@ class UsuarioManager{
                     }
                 }
 
-                if ($num === 0) {
+                if (0 === $num) {
                     // NO TIENE EL SORTEO ASOCIADO
 
                     $usuario->setNombre($data[0]);
                     $usuario->addSorteo($sorteoActual);
 
-                    try{
+                    try {
                         $this->usuarioRepository->addUser($usuario);
+
                         return true;
                     } catch (ORMException $e) {
                         $this->logger->alert($e->getMessage());
                     }
-
                 } else {
                     // YA ESTA INSCRITO EN EL SORTEO
                     throw new AlreadySubscribedException('¡Ya estás inscrito en el sorteo!');
@@ -85,52 +91,55 @@ class UsuarioManager{
             }
         }
     }
-    public function borrarUser($userData, Sorteo $actual, $num) {
-        /** @var Usuario $user */
-        $user = $this->getOneUsuarioBy(array('email' => $userData[0]));
 
-        try{
-            if ($user){
+    public function borrarUser($userData, Sorteo $actual, $num)
+    {
+        /** @var Usuario $user */
+        $user = $this->getOneUsuarioBy(['email' => $userData[0]]);
+
+        try {
+            if ($user) {
                 $hash = $user->getPassword();
-                if (password_verify($userData[1], $hash)){
+                if (password_verify($userData[1], $hash)) {
                     $sorteos = $user->getSorteos();
                     if (!empty($sorteos)) {
-                        foreach ($sorteos as $sorteo){
-                            if ($sorteo->getId() == $actual->getId()){
-                                $num += 1;
+                        foreach ($sorteos as $sorteo) {
+                            if ($sorteo->getId() === $actual->getId()) {
+                                ++$num;
                             } else {
                                 $num += 0;
                             }
                         }
                     } else {
-                        throw new UserNotFoundException("El usuario no está registrado en ningún sorteo");
+                        throw new UserNotFoundException('El usuario no está registrado en ningún sorteo');
                     }
-                    if ($num == 0 ) {
-                        $titulo = "ERROR";
-                        $respuesta = "Este usuario no está inscrito al sorteo actual";
+                    if (0 === $num) {
+                        $titulo = 'ERROR';
+                        $respuesta = 'Este usuario no está inscrito al sorteo actual';
                         $data = [$titulo, $respuesta];
-                    } else if ($num > 0) {
+                    } elseif ($num > 0) {
                         $user->removeSorteo($actual);
                         $this->usuarioRepository->removeFromSorteo($user);
-                        $titulo = "¡Operación realizada con éxito!";
-                        $respuesta = "Has sido borrado del sorteo actual";
+                        $titulo = '¡Operación realizada con éxito!';
+                        $respuesta = 'Has sido borrado del sorteo actual';
                         $data = [$titulo, $respuesta];
                     }
                 } else {
-                    throw new PasswordIncorrectException("Contraseña incorrecta. Introduzca de nuevo su contraseña.");
+                    throw new PasswordIncorrectException('Contraseña incorrecta. Introduzca de nuevo su contraseña.');
                 }
             } else {
-                throw new UserNotFoundException("El usuario no está registrado en ningún sorteo");
+                throw new UserNotFoundException('El usuario no está registrado en ningún sorteo');
             }
-        }catch (PasswordIncorrectException $pie){
-            $titulo = "ERROR";
+        } catch (PasswordIncorrectException $pie) {
+            $titulo = 'ERROR';
             $respuesta = $pie->getMessage();
             $data = [$titulo, $respuesta];
-        }catch (UserNotFoundException $unfe){
-            $titulo = "ERROR";
+        } catch (UserNotFoundException $unfe) {
+            $titulo = 'ERROR';
             $respuesta = $unfe->getMessage();
             $data = [$titulo, $respuesta];
         }
+
         return $data;
     }
 }

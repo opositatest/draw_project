@@ -116,3 +116,9 @@ fabric.properties
 
 
 # End of https://www.gitignore.io/api/phpstorm
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+.php_cs.dist
+###< friendsofphp/php-cs-fixer ###

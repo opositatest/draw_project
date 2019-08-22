@@ -1,22 +1,26 @@
-<?php  // ESTE CÓDIGO NO ES DEL PROYECTO FIN DE CICLO
+<?php
+
+declare(strict_types=1);
+
 // src/Controller/LuckyController.php
+
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class LuckyController extends Controller
+class LuckyController extends AbstractController
 {
-	/**
-      * @Route("/pizarra", name="example")
-      */
+    /**
+     * @Route("/pizarra", name="example")
+     */
     public function number()
     {
 //        $entityManager = $this->getDoctrine()->getManager();
 //        $encuesta = $entityManager->getRepository(Encuesta::class)->find($id);
 
-        return $this->render('basic.html'
+        return $this->render(
+            'basic.html'
         );
     }
 }

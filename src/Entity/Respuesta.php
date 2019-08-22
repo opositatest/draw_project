@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RespuestaRepository")
@@ -12,6 +13,7 @@ class Respuesta
 {
     /**
      * Many Respuestas have One Pregunta.
+     *
      * @ORM\ManyToOne(targetEntity="Pregunta", inversedBy="respuestas")
      * @ORM\JoinColumn(name="pregunta_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -83,5 +85,4 @@ class Respuesta
     {
         $this->pregunta = $pregunta;
     }
-
 }

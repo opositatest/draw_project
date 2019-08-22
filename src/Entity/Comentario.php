@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +13,7 @@ class Comentario
 {
     /**
      * Many Comentarios have One Encuesta.
+     *
      * @ORM\ManyToOne(targetEntity="Encuesta", inversedBy="comentarios")
      * @ORM\JoinColumn(name="encuesta_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -65,5 +68,4 @@ class Comentario
     {
         $this->encuesta = $encuesta;
     }
-
 }

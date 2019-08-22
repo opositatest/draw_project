@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Exceptions\GanadorNotSettedException;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -17,6 +19,7 @@ class Sorteo
 {
     /**
      * Many Sorteos have One Premio.
+     *
      * @ORM\ManyToOne(targetEntity="Premio", inversedBy="sorteos")
      * @ORM\JoinColumn(name="premio_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -33,7 +36,7 @@ class Sorteo
      * @ORM\Column(type="string", length=255)
      */
     private $img;
-    
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -61,14 +64,13 @@ class Sorteo
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
-
-    /*************************************************************************************/
-    /*************************************************************************************/
-
+    //
+    //
 
     public function __construct()
     {
@@ -77,7 +79,7 @@ class Sorteo
 
     public function __toString()
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     public function getId()
@@ -157,21 +159,22 @@ class Sorteo
     }
 
     /**
-     * @param Usuario|null $ganador
-     * @return Sorteo
+     * @param null|Usuario $ganador
+     *
      * @throws GanadorNotSettedException
+     *
+     * @return Sorteo
      */
     public function setGanador(?Usuario $ganador): self
     {
-        $hoy = new \DateTime();
+        $hoy = new \DateTimeImmutable();
 
         if ($this->getFecha() > $hoy) {
             throw new GanadorNotSettedException('No se ha podido añadir el ganador al sorteo '.$this->id.'. Fecha de sorteo > actual.');
-        } else {
-            $this->ganador = $ganador;
-            return $this;
         }
+        $this->ganador = $ganador;
 
+        return $this;
     }
 
     /**
@@ -185,7 +188,7 @@ class Sorteo
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $img = null)
+    public function setImageFile(File $img = null): void
     {
         $this->imageFile = $img;
 
@@ -193,9 +196,8 @@ class Sorteo
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($img) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
-
     }
 
     /**
@@ -209,11 +211,8 @@ class Sorteo
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
-
-
-
 }

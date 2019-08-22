@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Sorteo;
@@ -7,8 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Sorteo|null find($id, $lockMode = null, $lockVersion = null)
- * @method Sorteo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Sorteo find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Sorteo findOneBy(array $criteria, array $orderBy = null)
  * @method Sorteo[]    findAll()
  * @method Sorteo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -21,6 +23,8 @@ class SorteoRepository extends ServiceEntityRepository
 
     /**
      * @param $min, $max
+     * @param mixed $max
+     *
      * @return Sorteo[]
      */
     public function findBetween($max, $min): array
@@ -42,18 +46,19 @@ class SorteoRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('num')
             ->select('DISTINCT COUNT(num.id)')
-            ->from('App\Entity\Sorteo' , 'sor')
+            ->from('App\Entity\Sorteo', 'sor')
             ->groupBy('sor.id')
             ->getQuery();
+
         return $qb->execute();
     }
 
     public function findSorteoOrderBy($criteria, $order, $limit, $offset)
     {
-        return $this->findBy($criteria,$order,$limit,$offset);
+        return $this->findBy($criteria, $order, $limit, $offset);
     }
 
-    public function addSorteo($sorteo)
+    public function addSorteo($sorteo): void
     {
         $em = $this->getEntityManager();
 
@@ -61,11 +66,10 @@ class SorteoRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-    public function finishSorteo($sorteo)
+    public function finishSorteo($sorteo): void
     {
         $em = $this->getEntityManager();
         $em->persist($sorteo);
         $em->flush();
     }
-
 }

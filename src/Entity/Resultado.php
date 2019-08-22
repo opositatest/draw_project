@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResultadoRepository")
@@ -15,6 +16,7 @@ class Resultado
 {
     /**
      * Many Resultados have One Encuesta.
+     *
      * @ORM\ManyToOne(targetEntity="Encuesta", inversedBy="resultados")
      * @ORM\JoinColumn(name="encuesta_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -64,12 +66,13 @@ class Resultado
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
-    /*************************************************************************************/
-    /*************************************************************************************/
+    //
+    //
 
     public function __toString()
     {
@@ -168,7 +171,7 @@ class Resultado
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $img = null)
+    public function setImageFile(File $img = null): void
     {
         $this->imageFile = $img;
 
@@ -176,9 +179,8 @@ class Resultado
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($img) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
-
     }
 
     /**
@@ -192,9 +194,8 @@ class Resultado
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
-
 }

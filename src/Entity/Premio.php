@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PremioRepository")
@@ -15,6 +16,7 @@ class Premio
 {
     /**
      * One Premio has Many Sorteos.
+     *
      * @ORM\OneToMany(targetEntity="Sorteo", mappedBy="premio")
      */
     private $sorteos;
@@ -48,13 +50,18 @@ class Premio
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
-    /*************************************************************************************/
-    /*************************************************************************************/
+    public function __toString()
+    {
+        return $this->title;
+    }
 
+    //
+    //
 
     /**
      * @return mixed
@@ -70,11 +77,6 @@ class Premio
     public function setSorteos($sorteos): void
     {
         $this->sorteos = $sorteos;
-    }
-
-    public function __toString()
-    {
-        return $this->title;
     }
 
     public function getId()
@@ -117,7 +119,7 @@ class Premio
     /**
      * @param File $imageFile
      */
-    public function setImageFile(File $img = null)
+    public function setImageFile(File $img = null): void
     {
         $this->imageFile = $img;
 
@@ -125,9 +127,8 @@ class Premio
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
         if ($img) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
-
     }
 
     /**
@@ -141,7 +142,7 @@ class Premio
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Premio;
@@ -7,8 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Premio|null find($id, $lockMode = null, $lockVersion = null)
- * @method Premio|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Premio find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Premio findOneBy(array $criteria, array $orderBy = null)
  * @method Premio[]    findAll()
  * @method Premio[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -19,8 +21,8 @@ class PremioRepository extends ServiceEntityRepository
         parent::__construct($registry, Premio::class);
     }
 
-
-    public function getAllPremios(){
+    public function getAllPremios()
+    {
         return $this->findAll();
     }
 
