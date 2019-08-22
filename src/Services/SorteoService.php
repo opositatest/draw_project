@@ -9,27 +9,20 @@
 namespace App\Services;
 
 
-use App\Entity\Premio;
 use App\Entity\Sorteo;
-use App\Entity\Usuario;
 use App\Exceptions\AlreadySubscribedException;
-use App\Exceptions\GanadorNotSettedException;
 use App\Exceptions\PasswordIncorrectException;
 use App\Manager\SorteoManager;
 use App\Manager\UsuarioManager;
-use DateInterval;
 use Exception;
-use Psr\Log\LoggerInterface;
 
 class SorteoService
 {
-    private $logger;
     private $sorteoManager;
     private $usuarioManager;
 
-    public function __construct(LoggerInterface $logger, SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
+    public function __construct(SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
     {
-        $this->logger = $logger;
         $this->sorteoManager = $sorteoManager;
         $this->usuarioManager = $usuarioManager;
     }
@@ -42,10 +35,11 @@ class SorteoService
      * @return array
      * @throws Exception
      */
-    public function sorteoManagerAction($userData, $date, $fecha_sorteo,Sorteo $sorteo_actual){
+    public function sorteoManagerAction($userData, $date,Sorteo $sorteoActual){
         //añadir, crear o ejecutar
-        if ($date < $fecha_sorteo) {
-            if ($sorteo_actual->getGanador()) {
+        $fechaSorteo = $sorteoActual->getFecha();
+        if ($date < $fechaSorteo) {
+            if ($sorteoActual->getGanador()) {
                 // SORTEO ACTIVO CON GANADOR ---> error, no debería de pasar nunca
                 $respuesta = "¡Vaya! Parece que ha habido un error.";
                 $titulo = "ERROR";
@@ -55,7 +49,7 @@ class SorteoService
                 // SORTEO ACTIVO SIN GANADOR ---> añado usuario a sorteo
 
                 try {
-                    $this->usuarioManager->addUser($userData, $sorteo_actual);
+                    $this->usuarioManager->addUser($userData, $sorteoActual);
                     $respuesta = "Te has inscrito al sorteo. ¡Mucha suerte!";
                     $titulo ="ENHORABUENA";
                     $data = [$titulo, $respuesta];
@@ -71,19 +65,19 @@ class SorteoService
                 return $data;
             }
         } else{
-            if ($sorteo_actual->getGanador()) {
+            if ($sorteoActual->getGanador()) {
                 // SORTEO NO ACTIVO (FECHA MENOR) Y CON GANADOR ---> creo sorteo/añado usuario
 
                 /** @var Sorteo $newSorteo */
-                $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
+                $newSorteo = $this->sorteoManager->crearSorteo($fechaSorteo);
 
                 return $this->beforeAdding($newSorteo, $userData);
             } else {
                 // SORTEO NO ACTIVO (FECHA MENOR) Y SIN GANADOR ---> ejecuto sorteo/creo sorteo/añado usuario
-                $this->sorteoManager->runSorteo($sorteo_actual);
+                $this->sorteoManager->runSorteo($sorteoActual);
 
                 /** @var Sorteo $newSorteo */
-                $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
+                $newSorteo = $this->sorteoManager->crearSorteo($fechaSorteo);
 
                 return $this->beforeAdding($newSorteo, $userData);
             }

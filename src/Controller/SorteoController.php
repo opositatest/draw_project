@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Encuesta;
 use App\Entity\Sorteo;
 use App\Manager\SorteoManager;
 use App\Services\SorteoService;
@@ -59,7 +58,7 @@ class SorteoController extends BaseController
         // fecha sorteo_actual
         $fechaSorteo = $sorteoActual->getFecha();
 
-        $result = $sorteoService->sorteoManagerAction($userData, $date, $fechaSorteo, $sorteoActual);
+        $result = $sorteoService->sorteoManagerAction($userData, $date, $sorteoActual);
 
         return new JsonResponse($result);
     }
