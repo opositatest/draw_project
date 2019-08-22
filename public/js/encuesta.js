@@ -19,6 +19,7 @@ function cargar(){
 
 // FUNCION QUE SACA LAS PREGUNTAS Y RESPUESTAS
 function imprimirEncuesta(id_encuesta){
+    console.log(encuesta)
     //datos encuesta
     var titulo = encuesta.title;
     // create titulo de la encuesta

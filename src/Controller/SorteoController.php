@@ -30,7 +30,7 @@ class SorteoController extends BaseController
         $size = $total[0]['1'] - 1;
 
 
-        return $this->render('encuesta/sorteo.html.twig', array('historial' => $last4, 'actual' => $actual,
+        return $this->render('sorteo/sorteo.html.twig', array('historial' => $last4, 'actual' => $actual,
             'offset' => $this->offset, 'ultimo' => $ultimo->getId(), 'primero' => $primero->getId(), 'total' => $size));
     }
 
@@ -92,7 +92,7 @@ class SorteoController extends BaseController
      */
     public function comprobarSorteoAction()
     {
-        return $this->render('encuesta/comprobarSorteo.html.twig');
+        return $this->render('sorteo/comprobarSorteo.html.twig');
     }
 
 

@@ -22,6 +22,7 @@ class UserController extends BaseController{
      */
     public function loginAction(Request $request, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager){
         $user = new Usuario();
+        dump($user);
 
         $form = $this->createForm(LoginType::class, $user);
 
@@ -45,23 +46,23 @@ class UserController extends BaseController{
                 $sort_actual = $actual[0];
 
                 if (password_verify($user->getPassword(), $hash)){
-                    return $this->render('encuesta/comprobarSorteo.html.twig', array('usuario' => $usuario, 'sorteos' => $sorteos,
-                        'ganados' => $ganados, 'encuesta' => $encuesta, 'id_actual' => $sort_actual->getId()));
+                    return $this->render('sorteo/comprobarSorteo.html.twig', array('usuario' => $usuario, 'sorteos' => $sorteos,
+                        'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId()));
                 } else {
-                    return $this->render('encuesta/login.html.twig', array(
+                    return $this->render('user/login.html.twig', array(
                         'form' => $form->createView(),
                         'errorc' => "Contraseña incorrecta",
                     ));
                 }
             } else {
-                return $this->render('encuesta/login.html.twig', array(
+                return $this->render('user/login.html.twig', array(
                     'form' => $form->createView(),
                     'erroru' => "Usuario incorrecto",
                 ));
             }
         }
 
-        return $this->render('encuesta/login.html.twig', array(
+        return $this->render('user/login.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -69,7 +70,7 @@ class UserController extends BaseController{
     /**
      * @Route ("/sorteo/leave", name="borrar")
      */
-    public function borrarUserAction(Request $request, SorteoManager $sorteoManager) {
+    public function borrarUserAction(Request $request, SorteoManager $sorteoManager, UsuarioManager $usuarioManager) {
         //get data from ajax
         $mail = $request->get('mail');
         $pass = $request->get('pass');
@@ -81,7 +82,7 @@ class UserController extends BaseController{
         $actual = $sort[0];
         $num = 0;
 
-        $result = $usuarioService->borrarUser($userData, $actual, $num);
+        $result = $usuarioManager->borrarUser($userData, $actual, $num);
 
         return new JsonResponse($result);
     }

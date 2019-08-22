@@ -21,7 +21,7 @@ class UsuarioRepository extends ServiceEntityRepository
 
     public function getOneUsuarioBy($criteria)
     {
-        $this->findOneBy($criteria);
+        return $this->findOneBy($criteria);
     }
     public function addUser($user)
     {

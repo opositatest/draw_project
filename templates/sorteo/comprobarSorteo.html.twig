@@ -242,12 +242,12 @@
     {% endblock %}
 {% block footer_tag %}style="margin-top:17%"{% endblock %}
 
-    {%  block javaScript %}
-        <script src="{{ asset('js/main.js') }}"></script>
-        <script src="{{ asset('js/encuesta.js') }}"></script>
-        <script src="{{ asset('js/animateJS.js') }}"></script>
-        <script>
-            var encuesta = {{ encuesta|raw }};
+{%  block javaScript %}
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/encuesta.js') }}"></script>
+    <script src="{{ asset('js/animateJS.js') }}"></script>
+    <script>
+        var encuesta = {{ encuesta|raw }};
 
             function mostrarEncuesta() {
                 $("#top").hide().fadeIn(1000);
