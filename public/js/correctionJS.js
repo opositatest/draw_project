@@ -92,129 +92,12 @@ function changeOpos() {
 }
 
 function corregir(){
-    if ((parseInt(ncorrectas.val()) >= 0) && (parseInt(nincorrectas.val()) >= 0) && (parseInt(nblanco.val()) >= 0)) {
-        total =  parseInt(ncorrectas.val()) + parseInt(nincorrectas.val()) + parseInt(nblanco.val());
-            totalCorrectas = parseFloat(scoreCorrectQuestions.val()) * parseInt(ncorrectas.val());
-            totalIncorrectas = parseFloat(scoreIncorrectQuestions.val()) * parseInt(nincorrectas.val());
-            totalBlanco = parseFloat(scoreBlankQuestions.val()) * parseInt(nblanco.val());
-
-            calculoNota = totalBlanco + totalCorrectas + totalIncorrectas;
-
-            nota.text("Su nota es de " + calculoNota + " sobre " + total * scoreCorrectQuestions.val());
-    } else {
-        alert("No puede haber un número negativo de preguntas.");
-    }
-}
-
-function justNumbers(e)
-{
-    keynum = window.event ? window.event.keyCode : e.which;
-    //teclas delete y supr
-    if ((keynum === 8) || (keynum === 46))
-        return true;
-
-    // Patron de entrada, en este caso solo acepta numeros
-    patron = /[0-9-]/;
-    tecla_final = String.fromCharCode(keynum);
-    return patron.test(tecla_final);
-}
-
-function sumaEvent() {
-    if (ncorrectas.val() === ""){
-        ncorrectas.val("0");
-    }
-    if (nincorrectas.val() === ""){
-        nincorrectas.val("0");
-    }
-    if  (nblanco.val() === ""){
-        nblanco.val("0");
-    }
-
-    suma = parseInt(ncorrectas.val()) + parseInt(nincorrectas.val()) + parseInt(nblanco.val());
-    ntotal.val("" + suma);
-}
-
-function puntuacionEvent() {
-    if (scoreCorrectQuestions.val() === ""){
-        scoreCorrectQuestions.val("0");
-    }
-    if (scoreIncorrectQuestions.val() === ""){
-        scoreIncorrectQuestions.val("0");
-    }
-    if  (scoreBlankQuestions.val() === ""){
-        scoreBlankQuestions.val("0");
-    }
-}
-
-function clearInput(focus) {
-    focus.val("");
+    correccion.printResult();
 }
 
 function startEvents() {
-    // focus events
-    scoreCorrectQuestions.on( "focus", function( event ) {
-        clearInput(scoreCorrectQuestions);
-        setPersonalizado();
-    });
-    scoreIncorrectQuestions.on( "focus", function( event ) {
-        clearInput(scoreIncorrectQuestions);
-        setPersonalizado();
-    });
-    scoreBlankQuestions.on( "focus", function( event ) {
-        clearInput(scoreBlankQuestions);
-        setPersonalizado();
-    });
-    ncorrectas.on( "focus", function( event ) {
-        clearInput(ncorrectas);
-    });
-    nincorrectas.on( "focus", function( event ) {
-        clearInput(nincorrectas);
-    });
-    nblanco.on( "focus", function( event ) {
-        clearInput(nblanco);
-    });
-    // focusout events
-    scoreCorrectQuestions.on( "focusout", function( event ) {
-        puntuacionEvent();
-    });
-    scoreIncorrectQuestions.on( "focusout", function( event ) {
-        puntuacionEvent();
-    });
-    scoreBlankQuestions.on( "focusout", function( event ) {
-        puntuacionEvent();
-    });
+    correccion.addListeners();
 
-    ncorrectas.on( "focusout", function( event ) {
-        sumaEvent();
-    });
-    nincorrectas.on( "focusout", function( event ) {
-        sumaEvent();
-    });
-    nblanco.on( "focusout", function( event ) {
-        sumaEvent();
-    });
-
-    // keypress events
-    scoreCorrectQuestions.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-    scoreIncorrectQuestions.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-    scoreBlankQuestions.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-    ncorrectas.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-    nincorrectas.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-    nblanco.on( "keypress", function( event ) {
-        return justNumbers(event);
-    });
-
-    // click events
     btnCorrect.on( "click", function( event ) {
         corregir();
     });
@@ -224,17 +107,76 @@ function startEvents() {
 
 }
 
-function setPersonalizado() {
-    scoreCorrectVal = getInputVal(scoreCorrectQuestions);
-    scoreIncorrectVal = getInputVal(scoreIncorrectQuestions);
-    scoreBlankVal = getInputVal(scoreBlankQuestions);
-    selection.val("0");
-    scoreCorrectQuestions.val(scoreCorrectVal);
-    scoreIncorrectQuestions.val(scoreIncorrectVal);
-    scoreBlankQuestions.val(scoreBlankVal);
+class Correction{
+
+    scoreGood;
+    scoreBad;
+    scoreBlank;
+    numGood;
+    numBad;
+    numBlank;
+
+    totalQuestions;
+    mark;
+
+    constructor(){
+        this.scoreGood = window.document.getElementById("score-good")
+        this.scoreBad = window.document.getElementById("score-bad")
+        this.scoreBlank = window.document.getElementById("score-blank")
+        this.numGood = window.document.getElementById("num-good")
+        this.numBad = window.document.getElementById("num-bad")
+        this.numBlank = window.document.getElementById("num-blank")
+
+        this.totalQuestions = window.document.getElementById("total-questions")
+        this.mark = window.document.getElementById("final-mark");
+    }
+
+    checkScoresMakeSense() {
+        console.log(this.numGood.value);
+        if (this.numBad.value == 0 && this.numBlank.value == 0 && this.numGood.value == 0) return false;
+        if (parseFloat(this.scoreBlank.value) > parseFloat(this.scoreGood.value)) return false;
+        return true;
+    }
+
+    doCorrection(){
+        if(!this.checkScoresMakeSense()) return false;
+        let sum = this.scoreGood.value*(this.numGood.value) - this.scoreBad.value*(this.numBad.value) + this.scoreBlank.value*(this.numBlank.value);
+        return sum;
+    }
+
+    printResult(){
+        if (!this.doCorrection()){
+            this.mark.innerHTML =  "Ha habido un error, comprueba movidas";
+            return;
+        }
+        let score = this.doCorrection()
+        let max = parseFloat(this.numGood.value)*parseFloat(this.scoreGood.value) + parseFloat(this.numBlank.value)*parseFloat(this.scoreBlank.value)
+        this.mark.innerHTML = score + " / " + max;
+    }
+
+    addListeners(){
+        const inputs = window.document.getElementsByClassName('exam-input');
+        for(let i = 0; i < inputs.length; i++) {
+            const input = inputs[i];
+            // console.log(input);
+            input.addEventListener("focusout",  event => {
+                console.log(this.numGood)
+                let total = parseFloat(this.numBad.value) + parseFloat(this.numGood.value) + parseFloat(this.numBlank.value);
+                this.totalQuestions.value = total;
+            })
+            input.addEventListener("focusout", event => {
+                this.checkIllegalData(input)
+            })
+        }
+    }
+    checkIllegalData(input){
+        if(input.id === 'score-blank' ) return;
+        const value = parseFloat(input.value);
+        if(value < 0){
+            input.value = "0";
+        }
+    }
+
 }
 
-function getInputVal(input) {
-    return input.val();
-}
-
+const correccion = new Correction();
