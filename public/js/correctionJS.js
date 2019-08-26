@@ -132,7 +132,6 @@ class Correction{
     }
 
     checkScoresMakeSense() {
-        console.log(this.numGood.value);
         if (this.numBad.value == 0 && this.numBlank.value == 0 && this.numGood.value == 0) return false;
         if (parseFloat(this.scoreBlank.value) > parseFloat(this.scoreGood.value)) return false;
         return true;
@@ -158,9 +157,7 @@ class Correction{
         const inputs = window.document.getElementsByClassName('exam-input');
         for(let i = 0; i < inputs.length; i++) {
             const input = inputs[i];
-            // console.log(input);
             input.addEventListener("focusout",  event => {
-                console.log(this.numGood)
                 let total = parseFloat(this.numBad.value) + parseFloat(this.numGood.value) + parseFloat(this.numBlank.value);
                 this.totalQuestions.value = total;
             })
