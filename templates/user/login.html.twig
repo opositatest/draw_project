@@ -20,11 +20,8 @@
                     {{ form_label(form.email) }}
                 </div>
                 <div class="col-sm-6 justify-content-sm-center text-sm-left">
-                    {% if erroru is defined %}
-                        {{ form_widget(form.email, {'attr': {'data-toggle': 'tooltip', "title": "Usuario incorrecto", "class": "input-error"}}) }}
-                    {% else %}
                         {{ form_widget(form.email) }}
-                    {% endif %}
+                        {{ form_errors(form.email) }}
                 </div>
             </div>
 
@@ -33,11 +30,8 @@
                     {{ form_label(form.password) }}
                 </div>
                 <div class="col-sm-6 justify-content-sm-center text-sm-left">
-                    {% if errorc is defined %}
-                        {{ form_widget(form.password, {'attr': {'data-toggle': 'tooltip', "title": "Contraseña incorrecta", "class": "input-error"}}) }}
-                    {% else %}
                         {{ form_widget(form.password) }}
-                    {% endif %}
+                        {{ form_errors(form.password) }}
                 </div>
             </div>
 

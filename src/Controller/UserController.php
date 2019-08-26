@@ -10,6 +10,7 @@ use App\Forms\LoginType;
 use App\Manager\EncuestaManager;
 use App\Manager\SorteoManager;
 use App\Manager\UsuarioManager;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,16 +50,16 @@ class UserController extends BaseController
                     return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $usuario, 'sorteos' => $sorteos,
                         'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
                 }
+                $form->get('password')->addError(new FormError("Contraseña incorrecta"));
 
                 return $this->render('user/login.html.twig', [
                         'form' => $form->createView(),
-                        'errorc' => 'Contraseña incorrecta',
                     ]);
             }
+            $form->get('email')->addError(new FormError("Ese email no esta registrado!"));
 
             return $this->render('user/login.html.twig', [
-                    'form' => $form->createView(),
-                    'erroru' => 'Usuario incorrecto',
+                    'form' => $form->createView()
                 ]);
         }
 
