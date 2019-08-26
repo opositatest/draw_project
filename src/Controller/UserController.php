@@ -20,10 +20,9 @@ class UserController extends BaseController
     /**
      * @Route("/sorteo/login", name="login")
      */
-    public function loginAction(Request $request, UsuarioManager $usuarioManager, EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
+    public function loginAction(Request $request, UsuarioManager $usuarioManager)
     {
         $user = new Usuario();
-        dump($user);
 
         $form = $this->createForm(LoginType::class, $user);
 
@@ -36,24 +35,17 @@ class UserController extends BaseController
             $usuario = $usuarioManager->getOneUsuarioBy(['email' => $user->getEmail()]);
 
             if ($usuario) {
-                $sorteos = $usuario->getSorteos();
-                $ganados = $usuario->getSorteosGanados();
                 $hash = $usuario->getPassword();
-                $encuesta = $encuestaManager->getEncuestasOrderBy([], ['id' => 'ASC'], 1, 0);
-
-                $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
 
                 /** @var Sorteo $sort_actual */
-                $sort_actual = $actual[0];
 
                 if (password_verify($user->getPassword(), $hash)) {
-                    return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $usuario, 'sorteos' => $sorteos,
-                        'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
+                    return $this->redirectToRoute("show-sorteo", ["id" => $usuario->getId()]);
                 }
                 $form->get('password')->addError(new FormError("Contraseña incorrecta"));
 
                 return $this->render('user/login.html.twig', [
-                        'form' => $form->createView(),
+                        'form' => $form->createView()
                     ]);
             }
             $form->get('email')->addError(new FormError("Ese email no esta registrado!"));
@@ -67,6 +59,7 @@ class UserController extends BaseController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route ("/sorteo/leave", name="borrar")

@@ -19,8 +19,6 @@ class EncuestaController extends BaseController
 
     /**
      * @Route("/encuesta/{id}", name="encuesta")
-     *
-     * @param mixed $id
      */
     public function indexAction($id, EncuestaManager $encuestaManager)
     {

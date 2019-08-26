@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Sorteo;
+use App\Entity\Usuario;
+use App\Manager\EncuestaManager;
 use App\Manager\SorteoManager;
+use App\Manager\UsuarioManager;
 use App\Services\SorteoService;
 use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,7 +88,20 @@ class SorteoController extends BaseController
         return new JsonResponse($data);
     }
 
-    public function comprobarSorteo(): void
+    /**
+     * @Route("/sorteo/user/{id}", name="show-sorteo")
+     */
+    public function showSorteo(Request $request, $id, UsuarioManager $usuarioManager ,EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
     {
+        $user = $usuarioManager->getOneUsuarioBy(["id" => $id]);
+
+        $sorteos = $user->getSorteos();
+        $ganados = $user->getSorteosGanados();
+        $encuesta = $encuestaManager->getEncuestasOrderBy([], ['id' => 'ASC'], 1, 0);
+        $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
+        $sort_actual = $actual[0];
+
+        return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $user, 'sorteos' => $sorteos,
+            'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
     }
 }
