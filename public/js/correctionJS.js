@@ -149,7 +149,8 @@ class Correction{
             return;
         }
         let score = this.doCorrection()
-        let max = parseFloat(this.numGood.value)*parseFloat(this.scoreGood.value) + parseFloat(this.numBlank.value)*parseFloat(this.scoreBlank.value)
+        const totalQ = parseFloat(this.numBlank.value) + parseFloat(this.numBad.value) +  parseFloat(this.numGood.value);
+        let max = totalQ*parseFloat(this.scoreGood.value);
         this.mark.innerHTML = score + " / " + max;
     }
 
