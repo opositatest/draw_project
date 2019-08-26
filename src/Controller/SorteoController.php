@@ -25,9 +25,26 @@ class SorteoController extends BaseController
     public function sorteoAction(SorteoManager $sorteoManager)
     {
         $last4 = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], self::NUM_SORTEOS_INDEX, $this->offset);
-        $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0)[0];
-        $ultimo = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 1)[0];
-        $primero = $sorteoManager->getSorteosOrderby([], ['fecha' => 'ASC'], 1, 0)[0];
+        $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
+        if(!$actual){
+            $error = "no hay ningun sorteo actualmente";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
+        $actual = $actual[0];
+
+        $ultimo = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 1);
+        if(!$ultimo){
+            $error = "No hay ningun sorteo ahora mismo";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
+        $ultimo = $ultimo[0];
+
+        $primero = $sorteoManager->getSorteosOrderby([], ['fecha' => 'ASC'], 1, 0);
+        if (!$primero){
+            $error = "no hay ningun sorteo ahora mismo";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
+        $primero = $primero[0];
         $total = $sorteoManager->contarSorteos();
         $size = $total[0]['1'] - 1;
 
@@ -93,11 +110,23 @@ class SorteoController extends BaseController
     public function showSorteo(Request $request, $id, UsuarioManager $usuarioManager ,EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
     {
         $user = $usuarioManager->getOneUsuarioBy(["id" => $id]);
+        if(!$user){
+            $error = "No hay ningun usuario con ese ID";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
 
         $sorteos = $user->getSorteos();
+        if(!$sorteos){
+            $error = "No hay ningun Sorteo Actualmente";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
         $ganados = $user->getSorteosGanados();
         $encuesta = $encuestaManager->getEncuestasOrderBy([], ['id' => 'ASC'], 1, 0);
         $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
+        if(!$actual){
+            $error = "No hay ningun Sorteo Actualmente";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
         $sort_actual = $actual[0];
 
         return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $user, 'sorteos' => $sorteos,

@@ -30,7 +30,7 @@ class EncuestaManager
 
     public function getEncuestasOrderBy($criteria, $order, $limit, $offset)
     {
-        return $this->encuestaRepository->findBy($criteria, $order, $limit, $offset);
+         return $this->encuestaRepository->findBy($criteria, $order, $limit, $offset);
     }
 
     public function getTotalEncuestas()

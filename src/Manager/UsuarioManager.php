@@ -54,37 +54,28 @@ class UsuarioManager
             // EXISTE USUARIO EN BD ---> compruebo contraseña correcta
 
             $hash = $usuario->getPassword();
+            $password = $data[2];
 
-            if (password_verify($data[2], $hash)) {
+            if (password_verify($password, $hash)) {
                 // CONTRASEÑA CORRECTA ---> compruebo que no este en el sorteo actual
                 $num = 0;
                 $sorteos = $usuario->getSorteos()->getValues();
                 /** @var Sorteo $sorteo */
                 foreach ($sorteos as $sorteo) {
                     if ($sorteo->getId() === $sorteoActual->getId()) {
-                        $num = $num + 1;
-                    } else {
-                        $num = $num + 0;
+                        throw new AlreadySubscribedException('¡Ya estás inscrito en el sorteo!');
                     }
                 }
-
-                if (0 === $num) {
                     // NO TIENE EL SORTEO ASOCIADO
-
                     $usuario->setNombre($data[0]);
                     $usuario->addSorteo($sorteoActual);
 
                     try {
                         $this->usuarioRepository->addUser($usuario);
-
                         return true;
                     } catch (ORMException $e) {
                         $this->logger->alert($e->getMessage());
                     }
-                } else {
-                    // YA ESTA INSCRITO EN EL SORTEO
-                    throw new AlreadySubscribedException('¡Ya estás inscrito en el sorteo!');
-                }
             } else {
                 // CONTRASEÑA INCORRECTA
                 throw new PasswordIncorrectException('Ha habido un error al añadirte al sorteo, comprueba tu email y contraseña');
@@ -105,25 +96,21 @@ class UsuarioManager
                     if (!empty($sorteos)) {
                         foreach ($sorteos as $sorteo) {
                             if ($sorteo->getId() === $actual->getId()) {
-                                ++$num;
-                            } else {
-                                $num += 0;
+                                $user->removeSorteo($actual);
+                                $this->usuarioRepository->removeFromSorteo($user);
+                                $titulo = '¡Operación realizada con éxito!';
+                                $respuesta = 'Has sido borrado del sorteo actual';
+                                $data = [$titulo, $respuesta];
+                                return $data;
                             }
                         }
                     } else {
                         throw new UserNotFoundException('El usuario no está registrado en ningún sorteo');
                     }
-                    if (0 === $num) {
-                        $titulo = 'ERROR';
-                        $respuesta = 'Este usuario no está inscrito al sorteo actual';
-                        $data = [$titulo, $respuesta];
-                    } elseif ($num > 0) {
-                        $user->removeSorteo($actual);
-                        $this->usuarioRepository->removeFromSorteo($user);
-                        $titulo = '¡Operación realizada con éxito!';
-                        $respuesta = 'Has sido borrado del sorteo actual';
-                        $data = [$titulo, $respuesta];
-                    }
+                    $titulo = 'ERROR';
+                    $respuesta = 'Este usuario no está inscrito al sorteo actual';
+                    $data = [$titulo, $respuesta];
+                    return $data;
                 } else {
                     throw new PasswordIncorrectException('Contraseña incorrecta. Introduzca de nuevo su contraseña.');
                 }

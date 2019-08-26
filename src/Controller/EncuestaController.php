@@ -23,6 +23,10 @@ class EncuestaController extends BaseController
     public function indexAction($id, EncuestaManager $encuestaManager)
     {
         $encuesta = $encuestaManager->getEncuestaById($id);
+        if(!$encuesta){
+            $error = "No hay ninguna encuesta con ese ID";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
 
         $jsonContent = $this->serializar($encuesta);
 
@@ -67,9 +71,19 @@ class EncuestaController extends BaseController
     public function showEncuestasAction(Request $request, EncuestaManager $encuestaManager)
     {
         /** @var Encuesta $ultima */
-        $ultima = $encuestaManager->getEncuestasOrderby([], ['id' => 'DESC'], 1, 0)[0];
+        $ultima = $encuestaManager->getEncuestasOrderby([], ['id' => 'DESC'], 1, 0);
+        if(!$ultima){
+            $error = "No se encontro ninguna encuesta";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
+        $ultima = $ultima[0];
         /** @var Encuesta $primera */
-        $primera = $encuestaManager->getEncuestasOrderby([], ['id' => 'ASC'], 1, 0)[0];
+        $primera = $encuestaManager->getEncuestasOrderby([], ['id' => 'ASC'], 1, 0);
+        if(!$primera){
+            $error = "No se encontro ninguna encuesta";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
+        $primera = $primera[0];
 
         $encuestas = $encuestaManager->getEncuestasOrderby(
             [],
@@ -77,7 +91,10 @@ class EncuestaController extends BaseController
             self::NUM_ENCUESTAS_INDEX,
             $this->offset
         );
-
+        if(!$encuestas) {
+            $error = "No se encontro ninguna encuesta";
+            return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
+        }
         $num = $encuestaManager->getTotalEncuestas()[0]['1'];
 
         return $this->render('encuesta/mostrarEncuestas.html.twig', ['historial' => $encuestas,
