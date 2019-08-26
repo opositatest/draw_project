@@ -48,15 +48,12 @@ class SorteoManager
 
         try {
             if (\count($usuarios_sorteo) > 0) {
-                if (\count($usuarios_sorteo) > 0) {
-                    $random = random_int(0, \count($usuarios_sorteo) - 1);
-                    /** @var Usuario $ganador */
-                    $ganador = $usuarios_sorteo[$random];
+                $random = random_int(0, \count($usuarios_sorteo) - 1);
+                /** @var Usuario $ganador */
+                $ganador = $usuarios_sorteo[$random];
 
-                    $sorteo_actual->setGanador($ganador);
-
-                    $this->sorteoRepository->finishSorteo($sorteo_actual);
-                }
+                $sorteo_actual->setGanador($ganador);
+                $this->sorteoRepository->finishSorteo($sorteo_actual);
             } elseif (0 === \count($usuarios_sorteo)) {
                 $this->logger->info('No hay usuarios.');
             }

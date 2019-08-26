@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
             ];
 
         // create  encuestas
-        for ($i = 1; $i <= 13; ++$i) {
+        for ($i = 1; $i <= 13; $i++) {
             $encuesta = new Encuesta();
             $encuesta->setTitle('Encuesta '.$i);
             $encuesta->setImg('homer.jpg');
@@ -74,17 +74,11 @@ class AppFixtures extends Fixture
             $premio->setTitle('Viaje a Hawai para '.$i.' persona(s)');
             $premio->setImagen('');
             $manager->persist($premio);
-        }
-        $manager->flush();
-
-        for ($i = 1; $i <= 7; ++$i) {
-            /** @var Premio $selfPremio */
-            $selfPremio = $manager->getRepository(Premio::class)->find(random_int(1, 10));
 
             $sorteo = new Sorteo();
             $sorteo->setImg('');
-            $sorteo->setFecha(new \DateTimeImmutable('2018-0'.$i.'-1T00:00:00'));
-            $sorteo->setPremio($selfPremio);
+            $sorteo->setFecha(new \DateTime());
+            $sorteo->setPremio($premio);
             $manager->persist($sorteo);
             for ($j = 1; $j <= 10; ++$j ) {
                 $usuario = new Usuario();
@@ -95,13 +89,9 @@ class AppFixtures extends Fixture
                 $usuario->addSorteo($sorteo);
                 $manager->persist($usuario);
             }
-            $manager->flush();
-
-            /** @var Sorteo $selfSorteo */
-            $selfSorteo = $manager->getRepository(Sorteo::class)->find($i);
             $hoy = new \DateTimeImmutable();
-            if ($selfSorteo->getFecha() <= $hoy) {
-                $usuarios_sorteo = $selfSorteo->getUsuarios();
+            if ($sorteo->getFecha() <= $hoy) {
+                $usuarios_sorteo = $sorteo->getUsuarios();
                 $ganador = $usuarios_sorteo[random_int(0, \count($usuarios_sorteo) - 1)];
 
                 try {
@@ -112,6 +102,7 @@ class AppFixtures extends Fixture
                 $manager->persist($sorteo);
             }
         }
+
         $manager->flush();
     }
 }
