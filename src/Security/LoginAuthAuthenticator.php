@@ -74,7 +74,6 @@ class LoginAuthAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $rawPassword = $credentials['password'];
-        dump($user);
         return password_verify($credentials['password'], $user->getPassword());
         // Check the user's password or other credentials and return true or false
         // If there are no credentials to check, you can just return true
