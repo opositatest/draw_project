@@ -25,7 +25,6 @@ class SorteoController extends BaseController
     public function sorteoAction(SorteoManager $sorteoManager)
     {
 
-        dump($_ENV);
         $last4 = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], self::NUM_SORTEOS_INDEX, $this->offset);
         $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
         if(!$actual){
@@ -59,12 +58,7 @@ class SorteoController extends BaseController
      */
     public function subsciptionAction(Request $request, SorteoManager $sorteoManager, SorteoService $sorteoService)
     {
-        //get data from ajax
-        $name = $request->get('name');
-        $mail = $request->get('mail');
-        $pass = $request->get('pass');
-
-        $userData = [$name, $mail, $pass];
+       $user = $this->getUser();
 
         $sorteo = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
 
@@ -78,9 +72,12 @@ class SorteoController extends BaseController
         // fecha sorteo_actual
         $fechaSorteo = $sorteoActual->getFecha();
 
-        $result = $sorteoService->sorteoManagerAction($userData, $date, $fechaSorteo, $sorteoActual);
+        $result = $sorteoService->sorteoManagerAction($user, $date, $fechaSorteo, $sorteoActual);
 
-        return new JsonResponse($result);
+        $this->addFlash('notice', $result[0].' '.$result[1]);
+
+
+        return $this->redirectToRoute('sorteo');
     }
 
     /**
@@ -133,5 +130,24 @@ class SorteoController extends BaseController
 
         return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $user, 'sorteos' => $sorteos,
             'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
+    }
+
+    /**
+     * @Route ("/sorteo/leave", name="borrar")
+     */
+    public function borrarUserAction(Request $request, SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
+    {
+        $user = $this->getUser();
+
+        $sort = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
+
+        /** @var Sorteo $actual */
+        $actual = $sort[0];
+        $num = 0;
+
+        $usuarioManager->borrarUserFromSorteo($user, $actual, $num);
+
+        return $this->redirectToRoute('sorteo');
+
     }
 }

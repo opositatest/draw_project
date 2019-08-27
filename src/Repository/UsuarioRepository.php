@@ -33,8 +33,9 @@ class UsuarioRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-    public function removeFromSorteo($user): void
+    public function removeFromSorteo(Usuario $user, $actual): void
     {
+        $user->removeSorteo($actual);
         $em = $this->getEntityManager();
         $em->persist($user);
         $em->flush();

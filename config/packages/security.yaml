@@ -1,35 +1,51 @@
 security:
+    encoders:
+        App\Entity\Usuario:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory:
-                users:
-                    admin:
-                        password: $2y$12$bIeAH3wnwfZ2DownU.NqOu.U9nyjIb9tCqziL2eWz/HSBMTm41LYm
-                        roles: 'ROLE_ADMIN'
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Usuario
+                property: name
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
-            http_basic: true
-
+            guard:
+                authenticators:
+                    - App\Security\LoginAuthAuthenticator
+            logout:
+                path: app_logout
+                target: sorteo
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-    encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-            cost: 12
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/supasecretbackend, roles: ROLE_ADMIN }
+        #      - { path: ^/account/edit, roles: ROLE_USER }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+#      - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#      - { path: ^/user/list, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#      - { path: ^/songs/main, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#      - { path: ^/calendar/view, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#      - { path: ^/calendar/new, roles: ROLE_USER }
+#      - { path: ^/calendar/id, roles: ROLE_USER }
+#      - { path: ^/new, roles: ROLE_USER }
+#      - { path: ^/account/edit, roles: ROLE_USER }
+#      - { path: ^/songs/[id]/edit, roles: ROLE_USER }
+#      - { path: ^/songs/[id]/delete, roles: ROLE_USER }
+#      - { path: ^/songs/:name, roles: IS_AUTHENTICATED_ANONYMOUSLY }

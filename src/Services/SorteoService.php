@@ -37,7 +37,7 @@ class SorteoService
      *
      * @return array
      */
-    public function sorteoManagerAction($userData, $date, $fecha_sorteo, Sorteo $sorteo_actual)
+    public function sorteoManagerAction($user, $date, $fecha_sorteo, Sorteo $sorteo_actual)
     {
         //añadir, crear o ejecutar
         if ($date < $fecha_sorteo) {
@@ -52,7 +52,7 @@ class SorteoService
             // SORTEO ACTIVO SIN GANADOR ---> añado usuario a sorteo
 
             try {
-                $this->usuarioManager->addUser($userData, $sorteo_actual);
+                $this->usuarioManager->addUserToSorteo($user, $sorteo_actual);
                 $respuesta = 'Te has inscrito al sorteo. ¡Mucha suerte!';
                 $titulo = 'ENHORABUENA';
                 $data = [$titulo, $respuesta];
@@ -74,7 +74,7 @@ class SorteoService
             /** @var Sorteo $newSorteo */
             $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
 
-            return $this->beforeAdding($newSorteo, $userData);
+            return $this->beforeAdding($newSorteo, $user);
         }
         // SORTEO NO ACTIVO (FECHA MENOR) Y SIN GANADOR ---> ejecuto sorteo/creo sorteo/añado usuario
         $this->sorteoManager->runSorteo($sorteo_actual);
@@ -82,7 +82,7 @@ class SorteoService
         /** @var Sorteo $newSorteo */
         $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
 
-        return $this->beforeAdding($newSorteo, $userData);
+        return $this->beforeAdding($newSorteo, $user);
     }
 
     /**
@@ -97,7 +97,7 @@ class SorteoService
     {
         try {
             if ($newSorteo) {
-                $this->usuarioManager->addUser($userData, $newSorteo);
+                $this->usuarioManager->addUserToSorteo($userData, $newSorteo);
             }
             $respuesta = 'Atención: El sorteo anterior ha caducado. Te has inscrito a un nuevo sorteo. ¡Mucha suerte!';
             $titulo = 'ENHORABUENA';

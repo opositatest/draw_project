@@ -6,9 +6,16 @@
         <title>{% block title %}{% endblock %}</title>
         <link href="{{ asset('css/fontawesome/css/fontawesome-all.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script>
+            function hideModal (button){
+                const flash = button.parentNode.parentNode;
+                flash.classList.add('hide-flash');
+            }
+        </script>
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet" />
         {% endblock %}
@@ -26,5 +33,21 @@
 
         {% block javaScript %}
         {% endblock %}
+
+        {% block modal %}
+            {% for message in app.flashes('notice') %}
+                <div class="toast bg-light border-dark" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" onclick="hideModal(this)" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+
     </body>
 </html>

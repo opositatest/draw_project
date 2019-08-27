@@ -23,10 +23,16 @@
                     <a class="nav-link dropdown-toggle {% block sorteo_active %}{% endblock %}" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sorteos</a>
                     <div class="dropdown-menu drop-menu" aria-labelledby="dropdown">
                         <a class="dropdown-item drop" style="border-bottom: 1px solid white" href="/sorteo">Todos los sorteos</a>
-                        <a class="dropdown-item drop" href="/sorteo/login">Mis sorteos</a>
-
+                        {% if app.user %}
+                        <a class="dropdown-item drop" href="{{ '/sorteo/user/' ~ app.user.id }}">Mis sorteos</a>
+                        {% endif %}
                     </div>
                 </li>
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Salir</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -62,3 +68,4 @@
         </div>
     </footer>
 {% endblock %}
+

@@ -7,78 +7,63 @@ namespace App\Controller;
 use App\Entity\Sorteo;
 use App\Entity\Usuario;
 use App\Forms\LoginType;
+use App\Forms\RegisterType;
 use App\Manager\EncuestaManager;
 use App\Manager\SorteoManager;
 use App\Manager\UsuarioManager;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends BaseController
 {
+
     /**
-     * @Route("/sorteo/login", name="login")
+     * @Route("/sorteo/registro", name="register")
      */
-    public function loginAction(Request $request, UsuarioManager $usuarioManager)
+    public function register(Request $request, UsuarioManager $usuarioManager)
     {
         $user = new Usuario();
 
-        $form = $this->createForm(LoginType::class, $user);
+        $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            $usuarioManager->newUser($user);
 
-            /** @var Usuario $usuario */
-            $usuario = $usuarioManager->getOneUsuarioBy(['email' => $user->getEmail()]);
-
-            if ($usuario) {
-                $hash = $usuario->getPassword();
-
-                /** @var Sorteo $sort_actual */
-
-                if (password_verify($user->getPassword(), $hash)) {
-                    return $this->redirectToRoute("show-sorteo", ["id" => $usuario->getId()]);
-                }
-                $form->get('password')->addError(new FormError("Contraseña incorrecta"));
-
-                return $this->render('user/login.html.twig', [
-                        'form' => $form->createView()
-                    ]);
-            }
-            $form->get('email')->addError(new FormError("Ese email no esta registrado!"));
-
-            return $this->render('user/login.html.twig', [
-                    'form' => $form->createView()
-                ]);
+            return $this->redirectToRoute('home');
         }
 
-        return $this->render('user/login.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('user/register.html.twig', ['form' => $form->createView()]);
     }
+    /**
+     * @Route("/sorteo/login", name="app_login")
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // if ($this->getUser()) {
+        //    $this->redirectToRoute('target_path');
+        // }
 
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('user/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
 
     /**
-     * @Route ("/sorteo/leave", name="borrar")
+     * @Route("/logout", name="app_logout")
      */
-    public function borrarUserAction(Request $request, SorteoManager $sorteoManager, UsuarioManager $usuarioManager)
+    public function logout()
     {
-        //get data from ajax
-        $mail = $request->get('mail');
-        $pass = $request->get('pass');
-        $userData = [$mail, $pass];
-
-        $sort = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
-
-        /** @var Sorteo $actual */
-        $actual = $sort[0];
-        $num = 0;
-
-        $result = $usuarioManager->borrarUser($userData, $actual, $num);
-
-        return new JsonResponse($result);
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
+
 }

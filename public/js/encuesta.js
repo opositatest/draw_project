@@ -144,12 +144,9 @@ function imprimirSolucion(pos){
     redo.setAttribute("href", "/encuesta/" + encuesta.id);
     redo.innerHTML = "Volver a jugar";
 
-    var btnSorteo = document.createElement("button");
-    btnSorteo.setAttribute("type", "button");
+    var btnSorteo = document.createElement("a");
     btnSorteo.setAttribute("class", "btn btn-warning btn-lg btn-mar");
-    btnSorteo.setAttribute("data-toggle", "modal");
-    btnSorteo.setAttribute("data-target", "#myModal");
-    btnSorteo.setAttribute("onclick", "limpiarModal()");
+    btnSorteo.setAttribute("href", "/sorteo/add");
     btnSorteo.innerHTML = "Suscríbete al sorteo";
 
     $(redo).hide().appendTo("#colRedo").fadeIn(1000);

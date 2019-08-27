@@ -8,11 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsuarioRepository")
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -96,6 +97,26 @@ class Usuario
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->nombre;
+    }
+
+    public function getRoles()
+    {
+        return [];
+    }
+
+    public function getSalt()
+    {
+        //Not needed with Bcrypt
+    }
+
+    public function eraseCredentials()
+    {
+        //Not needed in this case.
     }
 
     /**

@@ -42,6 +42,11 @@ class SorteoManager
         return $this->sorteoRepository->contarSorteos();
     }
 
+    public function addSorteo($user, $sorteo){
+
+        $this->sorteoRepository->addSorteo($sorteo);
+    }
+
     public function runSorteo($sorteo_actual): void
     {
         $usuarios_sorteo = $sorteo_actual->getUsuarios();
