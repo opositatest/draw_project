@@ -24,6 +24,8 @@ class SorteoController extends BaseController
      */
     public function sorteoAction(SorteoManager $sorteoManager)
     {
+
+        dump($_ENV);
         $last4 = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], self::NUM_SORTEOS_INDEX, $this->offset);
         $actual = $sorteoManager->getSorteosOrderby([], ['fecha' => 'DESC'], 1, 0);
         if(!$actual){
