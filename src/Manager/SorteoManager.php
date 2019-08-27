@@ -58,7 +58,7 @@ class SorteoManager
                 $ganador = $usuarios_sorteo[$random];
 
                 $sorteo_actual->setGanador($ganador);
-                $this->sorteoRepository->finishSorteo($sorteo_actual);
+                $this->sorteoRepository->saveSorteo($sorteo_actual);
             } elseif (0 === \count($usuarios_sorteo)) {
                 $this->logger->info('No hay usuarios.');
             }

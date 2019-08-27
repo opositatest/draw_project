@@ -66,7 +66,7 @@ class SorteoRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-    public function finishSorteo($sorteo): void
+    public function saveSorteo($sorteo): void
     {
         $em = $this->getEntityManager();
         $em->persist($sorteo);

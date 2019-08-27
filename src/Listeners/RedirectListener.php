@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Entity\User;
+use App\Entity\Usuario;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Routing\RouterInterface;
@@ -45,7 +45,7 @@ class RedirectListener
         }
         $user = $token->getUser();
 
-        return $user instanceof User;
+        return $user instanceof Usuario;
     }
 
     private function isAuthenticatedUserOnAnonymousPage($currentRoute)

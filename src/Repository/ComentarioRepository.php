@@ -21,39 +21,11 @@ class ComentarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Comentario::class);
     }
 
-    public function addComentario($comentario): void
+    public function saveComment($comentario): void
     {
         $em = $this->getEntityManager();
         $em->persist($comentario);
         $em->flush();
     }
 
-//    /**
-//     * @return Comentario[] Returns an array of Comentario objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Comentario
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

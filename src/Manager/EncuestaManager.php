@@ -46,8 +46,10 @@ class EncuestaManager
         $comment->setEncuesta($encuesta);
         $comment->setText($text);
 
+        $encuesta->addComentario($comment);
+
         try {
-            $this->comentarioRepository->addComentario($comment);
+            $this->comentarioRepository->saveComment($comment);
 
             return true;
         } catch (ORMException $error) {

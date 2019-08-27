@@ -159,6 +159,7 @@ function accion(boton){
     var selfRespuesta;
     var selfValor;
 
+    console.log(selfPregunta,selfRespuesta,selfValor);
     for (var j = 0; j < encuesta.preguntas.length; j++) {
         if ($(boton).attr("data-idQuestion") == encuesta.preguntas[j].id) {
             selfPregunta =  encuesta.preguntas[j];
