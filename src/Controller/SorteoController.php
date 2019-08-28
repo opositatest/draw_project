@@ -104,11 +104,11 @@ class SorteoController extends BaseController
     }
 
     /**
-     * @Route("/sorteo/user/{id}", name="show-sorteo")
+     * @Route("/sorteo/user", name="show-sorteo")
      */
-    public function showSorteo(Request $request, $id, UsuarioManager $usuarioManager ,EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
+    public function showSorteo(Request $request, UsuarioManager $usuarioManager ,EncuestaManager $encuestaManager, SorteoManager $sorteoManager)
     {
-        $user = $usuarioManager->getOneUsuarioBy(["id" => $id]);
+        $user = $this->getUser();
         if(!$user){
             $error = "No hay ningun usuario con ese ID";
             return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
@@ -126,10 +126,10 @@ class SorteoController extends BaseController
             $error = "No hay ningun Sorteo Actualmente";
             return $this->render('encuesta/no_encuesta.html.twig', ['error' => $error]);
         }
-        $sort_actual = $actual[0];
+        $sorteoActual = $actual[0];
 
         return $this->render('sorteo/comprobarSorteo.html.twig', ['usuario' => $user, 'sorteos' => $sorteos,
-            'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sort_actual->getId(), ]);
+            'ganados' => $ganados, 'encuesta' => $this->serializar($encuesta[0]), 'id_actual' => $sorteoActual->getId(), ]);
     }
 
     /**

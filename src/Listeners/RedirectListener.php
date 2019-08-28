@@ -61,7 +61,7 @@ class RedirectListener
     {
         return \in_array(
             $currentRoute,
-            ['encuesta', 'borrar', 'comentario'],
+            ['encuesta', 'borrar', 'comentario', 'show-sorteo'],
             true
         );
     }

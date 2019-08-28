@@ -24,7 +24,9 @@
                     <div class="dropdown-menu drop-menu" aria-labelledby="dropdown">
                         <a class="dropdown-item drop" style="border-bottom: 1px solid white" href="/sorteo">Todos los sorteos</a>
                         {% if app.user %}
-                        <a class="dropdown-item drop" href="{{ '/sorteo/user/' ~ app.user.id }}">Mis sorteos</a>
+                        <a class="dropdown-item drop" href="{{ '/sorteo/user'}}">Mis sorteos</a>
+                        {% else %}
+                        <a class="dropdown-item drop" href="/sorteo/login">Mis sorteos</a>
                         {% endif %}
                     </div>
                 </li>

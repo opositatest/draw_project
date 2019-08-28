@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base_layout.html.twig' %}
 
 {% block title %}Login a Sorteos Ganados{% endblock title %}
 
@@ -8,16 +8,7 @@
     {% endblock %}
 
     {% block body_content %}
-        <div class="row justify-content-center text-center" id="edge" style="padding-bottom:70px; padding-top: 5%;">
-            <h1 class="sizedPageTitle">ACCESO A MIS SORTEOS</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/sorteo/login">Login</a></li>
-                <li><a href="/sorteo/registro">Registro</a></li>
-            </ul>
-        </nav>
-
+    {{ parent() }}
         {{ form_start(form) }}
         {{ form_errors(form) }}
         <div class="container container-responsive rounded" style="margin-bottom: 5%; padding: 2%; color: black;">
