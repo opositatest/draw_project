@@ -150,6 +150,11 @@ class Encuesta
         $this->comentarios = $comentarios;
     }
 
+    public function addComentario($comment)
+    {
+        $this->comentarios[] = $comment;
+    }
+
     public function getImg()
     {
         return $this->img;

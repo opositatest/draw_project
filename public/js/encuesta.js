@@ -91,7 +91,8 @@ function imprimirPreguntas(id_encuesta, pos, pos_pregunta){
 
 function imprimirSolucion(pos){
     const container = window.document.getElementById('father-container');
-    for (var i = 0; i < encuesta.resultados.length; i++){
+    console.log(encuesta)
+    for (let i = 0; i < encuesta.resultados.length; i++){
         if ( (encuesta.resultados[i].minVal)  <= (this.puntuacion) && (this.puntuacion) <= (encuesta.resultados[i].maxVal) ){
             container.className = 'd-flex flex-column';
             const childContainer = window.document.createElement('div');
@@ -104,30 +105,31 @@ function imprimirSolucion(pos){
             const textSolutionContainer = window.document.createElement('div');
             childContainer.appendChild(textSolutionContainer);
 
-            var solucion = encuesta.resultados[i].text;
-            var explicacion = encuesta.resultados[i].explanation;
+            const solucion = encuesta.resultados[i].text;
+            const explicacion = encuesta.resultados[i].explanation;
 
-            var h1 = document.createElement("h1");
+            const h1 = document.createElement("h1");
             h1.innerHTML = solucion;
             $(h1).hide().appendTo(title).fadeIn(1000);
 
-            var ruta = "../../img/" + encuesta.resultados[i].image;
-            var img = document.createElement("img");
+            const ruta = "../../img/" + encuesta.resultados[i].image;
+            const img = document.createElement("img");
             img.setAttribute("src", ruta);
             img.setAttribute("style", "width: 400px; height: 400px");
             img.setAttribute("class", "img-fluid rounded");
             $(img).hide().appendTo(imageSolutionContainer).fadeIn(1000);
 
-            var result = document.createElement("p");
+            const result = document.createElement("p");
             result.style.margin = "10px"
             result.innerHTML = explicacion;
             $(result).hide().appendTo(textSolutionContainer).fadeIn(1000);
 
             progress(100);
+            break;
         }
     }
 
-    var col = document.createElement("div");
+    const col = document.createElement("div");
     col.setAttribute("class", "col-sm-6 justify-content-center text-sm-right");
     col.setAttribute("id", "colRedo");
     $(col).appendTo("#div_respuestas");
@@ -155,11 +157,10 @@ function imprimirSolucion(pos){
 
 // funcion que realizan los botones de las respuestas
 function accion(boton){
-    var selfPregunta;
-    var selfRespuesta;
-    var selfValor;
+    let selfPregunta;
+    let selfRespuesta;
+    let selfValor;
 
-    console.log(selfPregunta,selfRespuesta,selfValor);
     for (var j = 0; j < encuesta.preguntas.length; j++) {
         if ($(boton).attr("data-idQuestion") == encuesta.preguntas[j].id) {
             selfPregunta =  encuesta.preguntas[j];
