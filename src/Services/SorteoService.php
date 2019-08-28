@@ -30,18 +30,17 @@ class SorteoService
     /**
      * @param $userData
      * @param $date
-     * @param $fecha_sorteo
-     * @param Sorteo $sorteo_actual
+     * @param Sorteo $sorteoActual
      *
      * @throws Exception
      *
      * @return array
      */
-    public function sorteoManagerAction($user, $date, $fecha_sorteo, Sorteo $sorteo_actual)
-    {
+    public function sorteoManagerAction($userData, $date,Sorteo $sorteoActual){
         //añadir, crear o ejecutar
-        if ($date < $fecha_sorteo) {
-            if ($sorteo_actual->getGanador()) {
+        $fechaSorteo = $sorteoActual->getFecha();
+        if ($date < $fechaSorteo) {
+            if ($sorteoActual->getGanador()) {
                 // SORTEO ACTIVO CON GANADOR ---> error, no debería de pasar nunca
                 $respuesta = '¡Vaya! Parece que ha habido un error.';
                 $titulo = 'ERROR';
@@ -52,7 +51,7 @@ class SorteoService
             // SORTEO ACTIVO SIN GANADOR ---> añado usuario a sorteo
 
             try {
-                $this->usuarioManager->addUserToSorteo($user, $sorteo_actual);
+                $this->usuarioManager->addUserToSorteo($user, $sorteoActual);
                 $respuesta = 'Te has inscrito al sorteo. ¡Mucha suerte!';
                 $titulo = 'ENHORABUENA';
                 $data = [$titulo, $respuesta];
@@ -68,19 +67,19 @@ class SorteoService
 
             return $data;
         }
-        if ($sorteo_actual->getGanador()) {
+        if ($sorteoActual->getGanador()) {
             // SORTEO NO ACTIVO (FECHA MENOR) Y CON GANADOR ---> creo sorteo/añado usuario
 
             /** @var Sorteo $newSorteo */
-            $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
+            $newSorteo = $this->sorteoManager->crearSorteo($fechaSorteo);
 
             return $this->beforeAdding($newSorteo, $user);
         }
         // SORTEO NO ACTIVO (FECHA MENOR) Y SIN GANADOR ---> ejecuto sorteo/creo sorteo/añado usuario
-        $this->sorteoManager->runSorteo($sorteo_actual);
+        $this->sorteoManager->runSorteo($sorteoActual);
 
         /** @var Sorteo $newSorteo */
-        $newSorteo = $this->sorteoManager->crearSorteo($fecha_sorteo);
+        $newSorteo = $this->sorteoManager->crearSorteo($fechaSorteo);
 
         return $this->beforeAdding($newSorteo, $user);
     }
@@ -114,4 +113,6 @@ class SorteoService
 
         return $data;
     }
+}
+
 }
