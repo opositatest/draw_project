@@ -28,19 +28,19 @@
                         <div class="content">
                             <label for="scoreCorrectQuestions"><span class="numero">1</span>Puntuación para las respuestas <b>correctas</b></label>
                             <div class="options">
-                                <input data-js="scoreCorrectQuestions" class="exam-input" maxlength="5" name="exam_correcting[scoreCorrectQuestions]" value="0" type="text">
+                                <input data-js="scoreCorrectQuestions" id="score-good" class="exam-input" maxlength="5" name="exam_correcting[scoreCorrectQuestions]" value="0" type="text">
                             </div>
                         </div>
                         <div class="content">
                             <label for="scoreIncorrectQuestions"><span class="numero">2</span>Puntuación para las respuestas <b>incorrectas</b></label>
                             <div class="options">
-                                <input data-js="scoreIncorrectQuestions" class="exam-input" maxlength="5" name="exam_correcting[scoreIncorrectQuestions]" value="0" type="text">
+                                <input data-js="scoreIncorrectQuestions" id="score-bad" class="exam-input" maxlength="5" name="exam_correcting[scoreIncorrectQuestions]" value="0" type="text">
                             </div>
                         </div>
                         <div class="content">
                             <label for="scoreBlankQuestions"><span class="numero">3</span>Puntuación para las respuestas <b>en blanco</b></label>
                             <div class="options">
-                                <input data-js="scoreBlankQuestions" class="exam-input" maxlength="5" name="exam_correcting[scoreBlankQuestions]" value="0" type="text">
+                                <input data-js="scoreBlankQuestions" id="score-blank" class="exam-input" maxlength="5" name="exam_correcting[scoreBlankQuestions]" value="0" type="text">
                             </div>
                         </div>
                     </form>
@@ -111,25 +111,25 @@
                         <div class="content">
                             <label for="scoreCorrectQuestions"><span class="numero">1</span>Número de preguntas <b>correctas</b></label>
                             <div class="options">
-                                <input data-js="numberCorrectQuestions" class="exam-input" maxlength="5" name="exam_correcting[numberCorrectQuestions]" value="0" type="text">
+                                <input data-js="numberCorrectQuestions" id="num-good" class="exam-input" maxlength="5" name="exam_correcting[numberCorrectQuestions]" value="0" type="text">
                             </div>
                         </div>
                         <div class="content">
                             <label for="scoreIncorrectQuestions"><span class="numero">2</span>Número de preguntas <b>incorrectas</b></label>
                             <div class="options">
-                                <input data-js="numberIncorrectQuestions" class="exam-input" maxlength="5" name="exam_correcting[numberIncorrectQuestions]" value="0" type="text">
+                                <input data-js="numberIncorrectQuestions" id="num-bad" class="exam-input" maxlength="5" name="exam_correcting[numberIncorrectQuestions]" value="0" type="text">
                             </div>
                         </div>
                         <div class="content">
                             <label for="scoreBlankQuestions"><span class="numero">3</span>Número de preguntas <b>en blanco</b></label>
                             <div class="options">
-                                <input data-js="numberBlankQuestions" class="exam-input" maxlength="5" name="exam_correcting[numberBlankQuestions]" value="0" type="text">
+                                <input data-js="numberBlankQuestions" id="num-blank" class="exam-input" maxlength="5" name="exam_correcting[numberBlankQuestions]" value="0" type="text">
                             </div>
                         </div>
                         <div class="content">
                             <label for="totalQuestions"><span class="numero text-muted">?</span>Número <b>total</b> de preguntas</label>
                             <div class="options">
-                                <input data-js="totalQuestions" class="exam-input" name="exam_correcting[totalQuestions]" value="0" type="text" disabled>
+                                <input data-js="totalQuestions" id="total-questions" class="exam-input" name="exam_correcting[totalQuestions]" value="0" type="text" disabled>
                             </div>
                         </div>
                     </form>
@@ -148,7 +148,7 @@
             <div class="col-sm-8 justify-content-center text-center" data-js="markCol">
                 <div class="row">
                     <div class="col-sm-8 offset-sm-2 exam-input-mark">
-                        <h4 data-js="toPlaceMark"></h4>
+                        <h4 id="final-mark" data-js="toPlaceMark"></h4>
                     </div>
                 </div>
             </div>

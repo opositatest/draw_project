@@ -121,4 +121,5 @@ fabric.properties
 /.php_cs
 /.php_cs.cache
 .php_cs.dist
+.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
