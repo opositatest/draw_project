@@ -1,107 +1,60 @@
 easy_admin:
-     design:
-         brand_color: 'purple'
-     entities:
-         Encuesta:
-             class: App\Entity\Encuesta
-             list:
-                 fields:
-                     - id
-                     - title
-                     - { property: 'img', type: 'image', base_path: '%app.path.encuesta_imgs%' }
-                     - preguntas
-                     - resultados
-                     - comentarios
-             form:
-                 fields:
-                     - title
-                     - { property: 'imageFile', type: 'file' }
-                     - preguntas
-                     - resultados
-                     - comentarios
-         Resultado:
-             class: App\Entity\Resultado
-             list:
-                 fields:
-                     - id
-                     - text
-                     - { property: 'image', type: 'image', base_path: '%app.path.encuesta_imgs%' }
-                     - explanation
-                     - { property: 'min_val', type : 'integer' }
-                     - { property: 'max_val', type : 'integer' }
-                     - encuesta
-             form:
-                 fields:
-                     - { property: 'text', type : 'textarea' }
-                     - { property: 'imageFile', type: 'file' }
-                     - { property: 'explanation', type : 'textarea' }
-                     - { property: 'min_val', type : 'integer' }
-                     - { property: 'max_val', type : 'integer' }
-                     - encuesta
-         Pregunta:
-             class: App\Entity\Pregunta
-             list:
-                 fields:
-                     - id
-                     - { property: 'image', type: 'image', base_path: '%app.path.encuesta_imgs%' }
-                     - text
-                     - encuesta
-                     - respuestas
-             form:
-                 fields:
-                     - { property: 'imageFile', type: 'file' }
-                     - { property: 'text', type : 'textarea' }
-                     - encuesta
-                     - respuestas
-         Respuesta:
-             class: App\Entity\Respuesta
-             form:
-                 fields:
-                     - { property: 'text', type : 'textarea' }
-                     - value
-                     - pregunta
-         Comentario:
-             class: App\Entity\Comentario
-             form:
-                 fields:
-                     - { property: 'text', type : 'textarea' }
-                     - encuesta
-         Sorteo:
-             class: App\Entity\Sorteo
-             list:
-                 fields:
-                     - id
-                     - premio
-                     - { property: 'img', type: 'image', base_path: '%app.path.encuesta_imgs%' }
-                     - fecha
-                     - usuarios
-                     - ganador
-             form:
-                 fields:
-                     - premio
-                     - { property: 'imageFile', type: 'file' }
-                     - fecha
-                     - usuarios
-                     - ganador
-         Premio:
-             class: App\Entity\Premio
-             list:
-                 fields:
-                     - id
-                     - title
-                     - { property: 'imagen', type: 'image', base_path: '%app.path.encuesta_imgs%' }
-                     - sorteos
-             form:
-                 fields:
-                     - title
-                     - { property: 'imageFile', type: 'file' }
-                     - sorteos
-         Usuario:
-             class: App\Entity\Usuario
-             form:
-                 fields:
-                     - nombre
-                     - email
-                     - password
-                     - sorteos
-                     - sorteos_ganados
+  list:
+    title: 'Lista de %%entity_label%%s'
+  edit:
+    title: 'Editar %%entity_label%%'
+  new:
+    title: 'Añadir %%entity_label%%'
+  site_name: 'Secret Backend'
+  design:
+    brand_color: 'purple'
+  entities:
+    Encuesta:
+      class: App\Entity\Encuesta
+      label: 'Encuesta'
+      form:
+        fields: ['title', 'img']
+
+    Pregunta:
+      class: App\Entity\Pregunta
+      label: 'Pregunta'
+      form:
+        fields: ['image', 'text', 'encuesta']
+
+    Comentario: 
+      class: App\Entity\Comentario
+      label: 'Comentario'
+
+    Premio:
+      class: App\Entity\Premio
+      label: 'Premio'
+      form:
+        fields: ['title', 'imagen']
+
+    Respuesta:
+      class: App\Entity\Respuesta
+      label: 'Respuesta'
+      form:
+        fields:
+          - text
+          - value
+          - { property: pregunta, type_options: { choice_label: 'text' } }
+    Resultado:
+      class: App\Entity\Resultado
+      label: 'Resultado'
+      form:
+        fields: ['text', 'image', 'explanation', 'minVal', 'maxVal', 'encuesta']
+    Sorteo: 
+      class: App\Entity\Sorteo
+      label: 'Sorteo'
+      help: 'Para añadir un ganador al sorteo editalo una vez creado!'
+      form:
+        fields: ['img', 'fecha', 'premio']
+      edit:
+        fields: ['ganador']
+    Usuario:
+      class: App\Entity\Usuario
+      label: 'Usuario'
+      form:
+        fields: ['nombre', 'email', 'password']
+

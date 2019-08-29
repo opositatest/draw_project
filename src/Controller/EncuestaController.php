@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Encuesta;
+use App\Entity\Pregunta;
+use App\Forms\AddPreguntaType;
 use App\Manager\EncuestaManager;
+use App\Manager\QuestionManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -126,5 +129,23 @@ class EncuestaController extends BaseController
         $data = [$jsonContent, $offset];
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/form", name="add_pregunta")
+     */
+    public function FormTest(Request $request, QuestionManager $questionManager){
+        $pregunta = new Pregunta();
+
+        $form = $this->createForm(AddPreguntaType::class, $pregunta);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $questionManager->addQuestion($data);
+        }
+
+        return $this->render('encuesta/form.html.twig', ['form' => $form->createView()]);
     }
 }

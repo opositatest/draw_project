@@ -178,4 +178,10 @@ class Pregunta
     {
         $this->updatedAt = $updatedAt;
     }
+
+    public function addRespuesta($respuesta)
+    {
+            $this->respuestas->add($respuesta);
+    }
+
 }
