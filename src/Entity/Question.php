@@ -26,7 +26,7 @@ class Question
     /**
      * One Question has Many Answers.
      *
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist"})
      */
     private $answers;
 
@@ -179,9 +179,16 @@ class Question
         $this->updatedAt = $updatedAt;
     }
 
-    public function addAnswer($answer)
+    public function addAnswer(Answer $answer)
     {
-            $this->answers->add($answer);
+        $answer->setQuestion($this);
+        $this->answers->add($answer);
     }
+
+    public function removeAnswer(Answer $answer)
+    {
+        $this->answers->remove($answer);
+    }
+
 
 }

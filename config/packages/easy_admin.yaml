@@ -19,7 +19,17 @@ easy_admin:
       class: App\Entity\Question
       label: 'Question'
       form:
-        fields: ['image', 'text', 'poll']
+        fields:
+          - image
+          - text
+          - poll
+          -
+            property: 'answers'
+            type: 'collection'
+            type_options:
+              entry_type: App\Forms\AnswerType
+              allow_add: true
+              by_reference: false 
 
     Comment: 
       class: App\Entity\Comment
