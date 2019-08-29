@@ -8,25 +8,25 @@ $(document).ready($(window).on('scroll' ,function(){
 
 //FUNCION PARA MODIFICAR EL NAVBAR
 function navbar(){
-	var encuesta = $('#edge').offset().top;
+	var poll = $('#edge').offset().top;
 	var stop = Math.round($(window).scrollTop());
 	if (key) {
-    	if (stop >= encuesta) {
+    	if (stop >= poll) {
 	        $("#nav").animate({height: "70px"});
 	        key = false;
     	}
     } else if (!key){
-    	if (stop < encuesta) {
+    	if (stop < poll) {
 	        $("#nav").animate({height: "90px"});
 	        key = true;
 	    }
     }
 
     if (key == null){
-    	if (stop >= encuesta) {
+    	if (stop >= poll) {
             $("#nav").css("height", "70px");
             key = false;
-    	} else if (stop < encuesta) {
+    	} else if (stop < poll) {
 	        $("#nav").css("height", "90px");
 	        key = true;
 	    }

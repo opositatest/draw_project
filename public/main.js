@@ -1,87 +1,87 @@
-var encuestas = 
+var polls = 
 [
 	{
 		"id": 1, 
 		"titulo": "¿Qué personaje de los simpsons serías?", 
-		"preguntas":
+		"questions":
 			[
 				{
-					"id_pregunta": 1, 
+					"id_question": 1, 
 					"imagen": "https://desempleotecnologico.files.wordpress.com/2013/07/work-relax.jpeg?w=500",
-					"enunciado_pregunta": "¿Qué te gusta más?", 
-					"respuestas": 
+					"enunciado_question": "¿Qué te gusta más?", 
+					"answers": 
 						[
 							{
-								"id_respuesta": 1, 
-								"enunciado_respuesta": "Comer donuts.", 
+								"id_answer": 1, 
+								"enunciado_answer": "Comer donuts.", 
 								"valor": 4 
 							},
 		 					{
-		 						"id_respuesta": 2,
-		 						"enunciado_respuesta": "Estudiar.",
+		 						"id_answer": 2,
+		 						"enunciado_answer": "Estudiar.",
 		 						"valor": 1
 		 					},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "Hacer gamberradas.", 
+								"id_answer": 3, 
+								"enunciado_answer": "Hacer gamberradas.", 
 								"valor": 2
 							},
 							{
-								"id_respuesta": 4, 
-								"enunciado_respuesta": "Servir copas.", 
+								"id_answer": 4, 
+								"enunciado_answer": "Servir copas.", 
 								"valor": 6
 							}
 						]
-				},  /*1ª pregunta, 1ª encuesta*/
+				},  /*1ª question, 1ª poll*/
 
 	 			{
-	 				"id_pregunta": 2, 
+	 				"id_question": 2, 
 	 				"imagen": "http://www.quieroimagenes.com/i/Homer-trabajando-imagen.jpg",
-	 				"enunciado_pregunta": "¿Te gusta trabajar?", 
-	 				"respuestas":
+	 				"enunciado_question": "¿Te gusta trabajar?", 
+	 				"answers":
 	 					[
 	 						{
-		 						"id_respuesta": 1, 
-		 						"enunciado_respuesta": "Sí, mucho.", 
+		 						"id_answer": 1, 
+		 						"enunciado_answer": "Sí, mucho.", 
 		 						"valor": 1
 		 					},
 							{
-								"id_respuesta": 2, 
-								"enunciado_respuesta": "No, nada.", 
+								"id_answer": 2, 
+								"enunciado_answer": "No, nada.", 
 								"valor": 5
 							},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "No mucho.", 
+								"id_answer": 3, 
+								"enunciado_answer": "No mucho.", 
 								"valor": 6
 							}
 	 					]
-				},  /*2ª pregunta, 1ª encuesta*/
+				},  /*2ª question, 1ª poll*/
 
 				{
-					"id_pregunta": 3, 
+					"id_question": 3, 
 					"imagen": "https://unaodoscopas.files.wordpress.com/2016/07/o_marcalpena_moes.jpg"	,
-					"enunciado_pregunta": "¿Qué preferirías hacer?", 
-					"respuestas": 
+					"enunciado_question": "¿Qué preferirías hacer?", 
+					"answers": 
 						[
 							{
-								"id_respuesta": 1, 
-								"enunciado_respuesta": "Comer, beber y dormir.", 
+								"id_answer": 1, 
+								"enunciado_answer": "Comer, beber y dormir.", 
 								"valor": 4
 							},
 							{
-								"id_respuesta": 2, 
-								"enunciado_respuesta": "Vacilar.", 
+								"id_answer": 2, 
+								"enunciado_answer": "Vacilar.", 
 								"valor": 2
 							},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "Tocar el saxofón.", 
+								"id_answer": 3, 
+								"enunciado_answer": "Tocar el saxofón.", 
 								"valor": 1
 							},
 							{
-								"id_respuesta": 4, 
-								"enunciado_respuesta": "Reirse de borrachos.", 
+								"id_answer": 4, 
+								"enunciado_answer": "Reirse de borrachos.", 
 								"valor": 7
 							}
 						]
@@ -123,85 +123,85 @@ var encuestas =
 	{
 		"id": 2, 
 		"titulo": "¿Qué personaje de los Simpsons serías?", 
-		"preguntas":
+		"questions":
 			[
 				{
-					"id_pregunta": 1, 
+					"id_question": 1, 
 					"imagen": "https://vignette.wikia.nocookie.net/inciclopedia/images/d/d7/Lisa_simpson_1.gif/revision/latest?cb=20090202033921",
-					"enunciado_pregunta": "¿Qué te gusta más?", 
-					"respuestas": 
+					"enunciado_question": "¿Qué te gusta más?", 
+					"answers": 
 						[
 							{
-								"id_respuesta": 1, 
-								"enunciado_respuesta": "Comer donuts.", 
+								"id_answer": 1, 
+								"enunciado_answer": "Comer donuts.", 
 								"valor": 4 
 							},
 		 					{
-		 						"id_respuesta": 2,
-		 						"enunciado_respuesta": "Estudiar.",
+		 						"id_answer": 2,
+		 						"enunciado_answer": "Estudiar.",
 		 						"valor": 1
 		 					},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "Hacer gamberradas.", 
+								"id_answer": 3, 
+								"enunciado_answer": "Hacer gamberradas.", 
 								"valor": 2
 							},
 							{
-								"id_respuesta": 4, 
-								"enunciado_respuesta": "Servir copas.", 
+								"id_answer": 4, 
+								"enunciado_answer": "Servir copas.", 
 								"valor": 6
 							}
 						]
-				},  /*1ª pregunta, 1ª encuesta*/
+				},  /*1ª question, 1ª poll*/
 
 	 			{
-	 				"id_pregunta": 2, 
+	 				"id_question": 2, 
 	 				"imagen": "http://www.puzzlesonline.es/puzzles/2015/simpsons/tirachinasdebart.jpg",
-	 				"enunciado_pregunta": "¿Te gusta trabajar?", 
-	 				"respuestas":
+	 				"enunciado_question": "¿Te gusta trabajar?", 
+	 				"answers":
 	 					[
 	 						{
-		 						"id_respuesta": 1, 
-		 						"enunciado_respuesta": "Sí, mucho.", 
+		 						"id_answer": 1, 
+		 						"enunciado_answer": "Sí, mucho.", 
 		 						"valor": 1
 		 					},
 							{
-								"id_respuesta": 2, 
-								"enunciado_respuesta": "No, nada.", 
+								"id_answer": 2, 
+								"enunciado_answer": "No, nada.", 
 								"valor": 5
 							},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "No mucho.", 
+								"id_answer": 3, 
+								"enunciado_answer": "No mucho.", 
 								"valor": 6
 							}
 	 					]
-				},  /*2ª pregunta, 1ª encuesta*/
+				},  /*2ª question, 1ª poll*/
 
 				{
-					"id_pregunta": 3, 
+					"id_question": 3, 
 					"imagen": "http://www.freakingnews.com/pictures/37000/Homer-Asleep-on-a-Sofa-37122.jpg",
-					"enunciado_pregunta": "¿Qué preferirías hacer?", 
-					"respuestas": 
+					"enunciado_question": "¿Qué preferirías hacer?", 
+					"answers": 
 						[
 							{
-								"id_respuesta": 1, 
-								"enunciado_respuesta": "Comer, beber y dormir.", 
+								"id_answer": 1, 
+								"enunciado_answer": "Comer, beber y dormir.", 
 								"valor": 4
 							},
 							{
-								"id_respuesta": 2, 
-								"enunciado_respuesta": "Vacilar.", 
+								"id_answer": 2, 
+								"enunciado_answer": "Vacilar.", 
 								"valor": 2
 							},
 							{
-								"id_respuesta": 3, 
-								"enunciado_respuesta": "Tocar el saxofón.", 
+								"id_answer": 3, 
+								"enunciado_answer": "Tocar el saxofón.", 
 								"valor": 1
 							},
 							{
-								"id_respuesta": 4, 
-								"enunciado_respuesta": "Reirse de borrachos.", 
+								"id_answer": 4, 
+								"enunciado_answer": "Reirse de borrachos.", 
 								"valor": 7
 							}
 						]
@@ -214,20 +214,20 @@ var encuestas =
 var comment = [
 	{
 		"id_comment": 1,
-		"texto": "¡Hola! Este es un comentario prueba de un usuario anónimo."
+		"texto": "¡Hola! Este es un comment prueba de un user anónimo."
 	},
 	{
 		"id_comment": 2,
-		"texto": "Por el momento solo habrá comentarios anónimos, pero es muy posible que se añadan usuarios en futuras versiones."
+		"texto": "Por el momento solo habrá comments anónimos, pero es muy posible que se añadan users en futuras versiones."
 	},
 	{
 		"id_comment": 3,
-		"texto": "Por ahora tampoco se pude responder a un comentario directamente. También se añadirá dicha funcionalidad."
+		"texto": "Por ahora tampoco se pude responder a un comment directamente. También se añadirá dicha funcionalidad."
 	}
 ];
 
 var puntuacion = 0;
-var Id_encuesta = 1;
+var Id_poll = 1;
 var PPos = 0;
 var key = null;
 var pos = 0;
@@ -241,16 +241,16 @@ function cargar(){
 	$(window).on('scroll',function(){
 	    navbar();	
 	});
-	imprimirEncuesta(getEPos());
+	imprimirPoll(getEPos());
 	imprimirSavedComments();
 }
 
 //FUNCION PARA MODIFICAR EL NAVBAR
 function navbar(){
-	var encuesta = $('#encuesta').offset().top;
+	var poll = $('#poll').offset().top;
 	var stop = Math.round($(window).scrollTop());
 	if (key) {
-    	if (stop >= encuesta) {
+    	if (stop >= poll) {
 	    	$("#nav").removeClass("navbar-light");
 	        $('#nav').addClass('navbar-dark');
 	        $('#nav').css("background-color", "black");
@@ -258,7 +258,7 @@ function navbar(){
 	        key = false;
     	}
     } else if (!key){
-    	if (stop < encuesta) {
+    	if (stop < poll) {
 	    	$("#nav").removeClass("navbar-dark");
 	        $('#nav').css("background-color", "#EDDBF3");
 	        $('#nav').addClass('navbar-light');
@@ -268,13 +268,13 @@ function navbar(){
     }  
 
     if (key == null){
-    	if (stop >= encuesta) {
+    	if (stop >= poll) {
 	    	$("#nav").removeClass("navbar-light");
 	        $('#nav').addClass('navbar-dark');
 	        $('#nav').css("background-color", "black");
 	        $("#nav").css("height", "60px");
 	        key = false;
-    	} else if (stop < encuesta) {
+    	} else if (stop < poll) {
 	    	$("#nav").removeClass("navbar-dark");
 	        $('#nav').css("background-color", "#EDDBF3");
 	        $('#nav').addClass('navbar-light');
@@ -285,151 +285,151 @@ function navbar(){
 }
 
 // FUNCION QUE SACA LAS PREGUNTAS Y RESPUESTAS
-function imprimirEncuesta(id_encuesta){
-	for (var i = 0; i < encuestas.length; i++){
-		if (id_encuesta === encuestas[i].id) {
+function imprimirPoll(id_poll){
+	for (var i = 0; i < polls.length; i++){
+		if (id_poll === polls[i].id) {
 			this.pos = i;
 		}
 	}
-		//datos encuesta
-	var id_encuesta = encuestas[pos].id;
-	var titulo = encuestas[pos].titulo;
-	// create titulo de la encuesta
+		//datos poll
+	var id_poll = polls[pos].id;
+	var titulo = polls[pos].titulo;
+	// create titulo de la poll
 	var h1 = document.createElement("h1");
-	h1.setAttribute("id", "titulo_encuesta_h1");
+	h1.setAttribute("id", "titulo_poll_h1");
 	h1.innerHTML = titulo;
-	//$("#titulo_encuesta").append(h1);
-	$(h1).hide().appendTo("#encuesta").fadeIn(1000);
-	imprimirPreguntas(getEPos(), this.pos, getPPos());	
+	//$("#titulo_poll").append(h1);
+	$(h1).hide().appendTo("#poll").fadeIn(1000);
+	imprimirQuestions(getEPos(), this.pos, getPPos());	
 }
 
-function imprimirPreguntas(id_encuesta, pos, pos_pregunta){
-		//datos pregunta
-	var id_pregunta = encuestas[pos].preguntas[pos_pregunta].id_pregunta;
-	var enunciado_pregunta = encuestas[pos].preguntas[pos_pregunta].enunciado_pregunta;
-	var ruta_img = encuestas[pos].preguntas[pos_pregunta].imagen;
+function imprimirQuestions(id_poll, pos, pos_question){
+		//datos question
+	var id_question = polls[pos].questions[pos_question].id_question;
+	var enunciado_question = polls[pos].questions[pos_question].enunciado_question;
+	var ruta_img = polls[pos].questions[pos_question].imagen;
 
-	// create imagen de la pregunta
+	// create imagen de la question
 	var img = document.createElement("img");
 	img.setAttribute("src", ruta_img);
 	img.setAttribute("class", "img-fluid rounded");
-	$(img).hide().appendTo("#img_encuesta").fadeIn(1000);
-	//$("#img_encuesta").append(img);
+	$(img).hide().appendTo("#img_poll").fadeIn(1000);
+	//$("#img_poll").append(img);
 
-	// create enunciado de la pregunta
+	// create enunciado de la question
 	var h4 = document.createElement("h4");
-	h4.setAttribute("id", "enunciado_pregunta_h4");
-	h4.innerHTML = enunciado_pregunta;
-	$(h4).hide().appendTo("#pregunta").fadeIn(1000);
-	//$("#pregunta").append(h4);
+	h4.setAttribute("id", "enunciado_question_h4");
+	h4.innerHTML = enunciado_question;
+	$(h4).hide().appendTo("#question").fadeIn(1000);
+	//$("#question").append(h4);
 
-	// create respuestas de la pregunta
-	for (var j = 0; j < encuestas[pos].preguntas[pos_pregunta].respuestas.length; j++){
-		//datos respuesta
-		var id_respuesta = encuestas[pos].preguntas[pos_pregunta].respuestas[j].id_respuesta;
-		var enunciado_respuesta = encuestas[pos].preguntas[pos_pregunta].respuestas[j].enunciado_respuesta; 
+	// create answers de la question
+	for (var j = 0; j < polls[pos].questions[pos_question].answers.length; j++){
+		//datos answer
+		var id_answer = polls[pos].questions[pos_question].answers[j].id_answer;
+		var enunciado_answer = polls[pos].questions[pos_question].answers[j].enunciado_answer; 
 		
 
 		var div = document.createElement("div");
 	    div.setAttribute("class", "col-12 justify-content-center text-center");
 	    div.setAttribute("style", "padding-bottom:20px");
 
-		var respuesta = document.createElement("input");
-	    respuesta.setAttribute("type", "button");
-	    respuesta.setAttribute("id", id_respuesta);
-	    respuesta.setAttribute("class", "btn btn-dark btn-width");
-	    respuesta.setAttribute("value", enunciado_respuesta);
-	    respuesta.setAttribute("data-idResponse", id_respuesta);
-	    respuesta.setAttribute("data-idQuestion", id_pregunta);
-	    respuesta.setAttribute("data-idEncuesta", id_encuesta);
-	    respuesta.setAttribute("onclick", "accion(this)");
+		var answer = document.createElement("input");
+	    answer.setAttribute("type", "button");
+	    answer.setAttribute("id", id_answer);
+	    answer.setAttribute("class", "btn btn-dark btn-width");
+	    answer.setAttribute("value", enunciado_answer);
+	    answer.setAttribute("data-idResponse", id_answer);
+	    answer.setAttribute("data-idQuestion", id_question);
+	    answer.setAttribute("data-idPoll", id_poll);
+	    answer.setAttribute("onclick", "accion(this)");
 
-	    $(respuesta).hide().appendTo(div).fadeIn(1000);
-    	//div.append(respuesta);
+	    $(answer).hide().appendTo(div).fadeIn(1000);
+    	//div.append(answer);
 	   
-		//$("#div_respuestas").append(div);
-		$(div).hide().appendTo("#div_respuestas").fadeIn(1000);
-		setPPos(pos_pregunta + 1);
+		//$("#div_answers").append(div);
+		$(div).hide().appendTo("#div_answers").fadeIn(1000);
+		setPPos(pos_question + 1);
 		//progress bar
-		var num_preg = encuestas[pos].preguntas.length;
-		var newWidth = id_pregunta / num_preg * 100;
+		var num_preg = polls[pos].questions.length;
+		var newWidth = id_question / num_preg * 100;
 		progress(newWidth);
 	}
 	this.printed ++;
 }
 
-// funcion que imprime el resultado
+// funcion que imprime el result
 
 function imprimirSolucion(pos){
 	
-	//$("#titulo_encuesta").append(h1);
+	//$("#titulo_poll").append(h1);
 
-	for (var i = 0; i < encuestas[pos].soluciones.length; i++){
-		console.log(encuestas[pos].soluciones[i].rango[0]);
-		if ((encuestas[pos].soluciones[i].rango[0]) <= (this.puntuacion) && (this.puntuacion) <= (encuestas[pos].soluciones[i].rango[1])){
-			var solucion = encuestas[pos].soluciones[i].solucion;
-			var ruta = encuestas[pos].soluciones[i].imagen;
-			var explicacion = encuestas[pos].soluciones[i].explicacion;
+	for (var i = 0; i < polls[pos].soluciones.length; i++){
+		console.log(polls[pos].soluciones[i].rango[0]);
+		if ((polls[pos].soluciones[i].rango[0]) <= (this.puntuacion) && (this.puntuacion) <= (polls[pos].soluciones[i].rango[1])){
+			var solucion = polls[pos].soluciones[i].solucion;
+			var ruta = polls[pos].soluciones[i].imagen;
+			var explicacion = polls[pos].soluciones[i].explicacion;
 
 			var h1 = document.createElement("h1");
 			h1.innerHTML = solucion;
-			$(h1).hide().appendTo("#titulo_encuesta").fadeIn(1000);
+			$(h1).hide().appendTo("#titulo_poll").fadeIn(1000);
 
 			var img = document.createElement("img");
 			img.setAttribute("src", ruta);
-			$(img).hide().appendTo("#img_encuesta").fadeIn(1000);
+			$(img).hide().appendTo("#img_poll").fadeIn(1000);
 
 			var result = document.createElement("p");
 			result.innerHTML = explicacion;
-			$(result).hide().appendTo("#pregunta").fadeIn(1000);
+			$(result).hide().appendTo("#question").fadeIn(1000);
 		}
 	}
 }
 
-// funcion que realizan los botones de las respuestas
+// funcion que realizan los botones de las answers
 function accion(boton){
 	var id = boton.id;
-	var selfEncuesta;
-	var selfPregunta;
-	var selfRespuesta;
+	var selfPoll;
+	var selfQuestion;
+	var selfAnswer;
 	var selfValor;
-	for (var i = 0; i < encuestas.length; i++){
-		if ($(boton).attr("data-idEncuesta") == encuestas[i].id){
-			selfEncuesta = encuestas[i];
-			for (var j = 0; j < encuestas[i].preguntas.length; j++) {
-				if ($(boton).attr("data-idQuestion") == encuestas[i].preguntas[j].id_pregunta) {
-					selfPregunta =  encuestas[i].preguntas[j];
+	for (var i = 0; i < polls.length; i++){
+		if ($(boton).attr("data-idPoll") == polls[i].id){
+			selfPoll = polls[i];
+			for (var j = 0; j < polls[i].questions.length; j++) {
+				if ($(boton).attr("data-idQuestion") == polls[i].questions[j].id_question) {
+					selfQuestion =  polls[i].questions[j];
 				}
 			}
 		}
 	}
 	
-	for (var h = 0; h < selfPregunta.respuestas.length; h++){
-		if ($(boton).attr("data-idResponse") == selfPregunta.respuestas[h].id_respuesta) {
-			selfRespuesta = selfPregunta.respuestas[h];
+	for (var h = 0; h < selfQuestion.answers.length; h++){
+		if ($(boton).attr("data-idResponse") == selfQuestion.answers[h].id_answer) {
+			selfAnswer = selfQuestion.answers[h];
 		}
 	}
 
-	selfValor = selfRespuesta.valor;
+	selfValor = selfAnswer.valor;
 	setPuntuacion(selfValor);
 	limpiarSalida();
-	// si el numero de preguntas impresas es igual al total de preguntas de esa encuesta, sacamos el resultado
-	if (this.printed == encuestas[this.pos].preguntas.length){
+	// si el numero de questions impresas es igual al total de questions de esa poll, sacamos el result
+	if (this.printed == polls[this.pos].questions.length){
 		imprimirSolucion(this.pos);
 	} else {
-		imprimirPreguntas(getEPos(), this.pos, getPPos());	
+		imprimirQuestions(getEPos(), this.pos, getPPos());	
 	}
 }
 
-// funcion que resetea la pregunta y los botones
+// funcion que resetea la question y los botones
 function limpiarSalida(){
-	$("#titulo_encuesta").empty();
-	$("#img_encuesta").empty();
-	$("#pregunta").empty();
-	$("#div_respuestas").empty();
+	$("#titulo_poll").empty();
+	$("#img_poll").empty();
+	$("#question").empty();
+	$("#div_answers").empty();
 }
 
-// funcion que saca por pantalla los comentarios ya guardados
+// funcion que saca por pantalla los comments ya guardados
 function imprimirSavedComments(){
 	for (var i = 0; i < comment.length; i++){
 		// creo div row
@@ -475,8 +475,8 @@ function imprimirSavedComments(){
 		    $("#coment").val("");
 	}
 }
-// funcion que imprime los comentarios nuevos y los guarda (temporalmente)
-function imprimirComentarios(){
+// funcion que imprime los comments nuevos y los guarda (temporalmente)
+function imprimirComments(){
 	var texto = $("#coment").val();
 	if (texto != "") {
 		size = comment.length;
@@ -529,7 +529,7 @@ function imprimirComentarios(){
 	} else {
 		/*var alerta = document.createElement("div");
 		alerta.setAttribute("class", "alert alert-success");
-		alerta.innerHTML = "strong>Introduzca texto en la casilla de comentarios.</strong>";
+		alerta.innerHTML = "strong>Introduzca texto en la casilla de comments.</strong>";
 
 		var a = document.createElement("a");
 		a.setAttribute("href", "#");
@@ -542,8 +542,8 @@ function imprimirComentarios(){
 	}	
 }
 
-//funcion que elimina la salida de los comentarios
-function limpiarComentarios(){
+//funcion que elimina la salida de los comments
+function limpiarComments(){
 	$("#rowComment").empty();
 }
 
@@ -556,11 +556,11 @@ function progress(newWidth){
 
 // GETTERS Y SETTERS
 function setEPos(EPos){
-	this.Id_encuesta = Id_encuesta;
+	this.Id_poll = Id_poll;
 }
 
 function getEPos(){
-	return this.Id_encuesta;
+	return this.Id_poll;
 }
 
 function setPPos(PPos){

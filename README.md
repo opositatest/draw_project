@@ -3,7 +3,7 @@
 Repositorio con 3 proyectos:
 
     -Plantilla sistema de corrección de examen
-    -Sorteo pizarra y reunión
+    -Lottery pizarra y reunión
     -Proyecto IdentificaTest (Proyecto Fin Ciclo)
 
 En este proyecto se utiliza LAMP con Symfony 4.
@@ -21,10 +21,10 @@ Pasos para la instalación del proyecto:
         php bin/console server:run
     - las rutas del proyecto de fin de ciclo son:
         - /home
-        - /encuestas
-        - /encuesta/{id}
-        - /sorteo
-        - /sorteo/login
+        - /polls
+        - /poll/{id}
+        - /lottery
+        - /lottery/login
         
 
 En caso de problemas, consultar los siguientes links:
@@ -44,7 +44,7 @@ Base de datos:
       ejecutar los siguientes comandos para crear base de datos
       de prueba:
             - php bin/console doctrine:database:create
-            - Una vez hecho esto, indicar en el archivo .env (en la raíz del proyecto) la base de datos y usuario que se utiliza.
+            - Una vez hecho esto, indicar en el archivo .env (en la raíz del proyecto) la base de datos y user que se utiliza.
             - php bin/console doctrine:schema:update --force
             - php bin/console doctrine:fixtures:load
                 
@@ -52,7 +52,7 @@ Base de datos:
 
 Código creado por mi correspondiente al proyecto fin de ciclo:
 
-        - templates/encuesta/*
+        - templates/poll/*
         - templates/base.html.twig
         - src/* excepto:
                 - Controller/CorreccionExamenController.php

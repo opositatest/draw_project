@@ -1,0 +1,85 @@
+{% extends 'poll/index.html.twig' %}
+
+    {% block title %}
+        Lotteries Ganados
+    {% endblock title %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block body_tag %}{% endblock %}
+    {% block lottery_active %}active{% endblock %}
+    {% block body_content %}
+
+        <!-- HEADER -->
+
+        <header id="header">
+            <div class="container" style="padding-top:70px; margin-top: 4%;">
+                <div class="row justify-content-center" id="edge">
+                    <h1 class="sizedPageTitle bigTitle">MIS SORTEOS</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="container" style="padding-top:70px">
+        <div class="row justify-content-center" id="edge">
+            <a href="https://www.opositatest.com/"></a>
+        </div>
+        <div class="row text-center justify-content-center">
+            <h1 class="sizedPageTitle"><b>HAS PARTICIPADO EN {{ lotteries|length }} SORTEO(S)</b></h1>
+        </div>
+        <hr style="background-color: black; margin-bottom: 5%">
+        {% for lottery in lotteries | reverse %}
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3 text-left" style="margin-bottom: 50px">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item-action text-dark text-center bg-warning" disabled>SORTEO: {{ lottery.id }}</button>
+                        <button type="button" class="list-group-item-action" disabled>PREMIO: {{ lottery.prize }}</button>
+                        <button type="button" class="list-group-item-action" disabled>FECHA: {{ lottery.fecha|date('d/M/Y') }}</button>
+                        <button type="button" class="list-group-item-action" disabled>RESULTADO:
+                            {% if not lottery.ganador %}
+                            PENDIENTE
+                            {% elseif lottery.ganador.id != user.id %}
+                            PERDIDO
+                            {% else %}
+                            GANADO
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="container" style="padding-top:70px;">
+            <div class="row text-center justify-content-center">
+                <h3>¡REALIZA OTRA ENCUESTA PARA UNIRTE A MÁS SORTEOS!</h3>
+            </div>
+            <div class="row text -center justify-content-center" style="margin-top: 2%">
+                <a href="/polls"><input type="button" class="btn btn-warning" value="Ver todas las polls"></a>
+            </div>
+        </div>
+    {% endblock %}
+{% block footer_tag %}style="margin-top:17%"{% endblock %}
+
+{%  block javaScript %}
+    <script src="{{ asset('js/main.js') }}"></script>
+{#    <script src="{{ asset('js/poll.js') }}"></script>#}
+    <script src="{{ asset('js/animateJS.js') }}"></script>
+    <script>
+        var poll = {{ poll|raw }};
+            function show_poll() {
+                $("#top").hide().fadeIn(1000);
+                $("#showBtn").attr("value", "Ocultar poll");
+                $("#showBtn").attr("onclick", "ocultarPoll()");
+                $("#showBtn").animatescroll({scrollSpeed:2000,easing:'easeInOutBack'});
+                // https://plugins.compzets.com/animatescroll/#
+            }
+            
+            function ocultarPoll() {
+                $("#top").fadeOut(1000);
+                $("#showBtn").attr("value", "Mostrar poll");
+                $("#showBtn").attr("onclick", "show_poll()");
+                $("#showBtn").animatescroll({scrollSpeed:2000,easing:'easeInOutBack'});
+            }
+        </script>
+    {% endblock %}

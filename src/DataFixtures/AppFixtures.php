@@ -5,14 +5,14 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Comentario;
-use App\Entity\Encuesta;
-use App\Entity\Pregunta;
-use App\Entity\Premio;
-use App\Entity\Respuesta;
-use App\Entity\Resultado;
-use App\Entity\Sorteo;
-use App\Entity\Usuario;
+use App\Entity\Comment;
+use App\Entity\Poll;
+use App\Entity\Question;
+use App\Entity\Prize;
+use App\Entity\Answer;
+use App\Entity\Result;
+use App\Entity\Lottery;
+use App\Entity\User;
 use App\Exceptions\GanadorNotSettedException;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -31,75 +31,75 @@ class AppFixtures extends Fixture
                     'https://vignette.wikia.nocookie.net/lossimpson/images/1/14/Ralph_Wiggum.png/revision/latest?cb=20150426070659&path-prefix=es',
             ];
 
-        // create  encuestas
+        // create  polls
         for ($i = 1; $i <= 13; $i++) {
-            $encuesta = new Encuesta();
-            $encuesta->setTitle('Encuesta '.$i);
-            $encuesta->setImg('homer.jpg');
-            $manager->persist($encuesta);
+            $poll = new Poll();
+            $poll->setTitle('Poll '.$i);
+            $poll->setImg('homer.jpg');
+            $manager->persist($poll);
             for ($j = 1; $j <= 4; ++$j) {
-                $pregunta = new Pregunta();
-                $pregunta->setImage('work-relax.jpeg');
-                $pregunta->setText('pregunta '.$j);
-                $pregunta->setEncuesta($encuesta);
-                $manager->persist($pregunta);
+                $question = new Question();
+                $question->setImage('work-relax.jpeg');
+                $question->setText('question '.$j);
+                $question->setPoll($poll);
+                $manager->persist($question);
                 for ($h = 1; $h <= 4; ++$h) {
-                    $respuesta = new Respuesta();
-                    $respuesta->setText('Respuesta '.$h.' de la pregunta '.$j.' de la encuesta '.$i);
-                    $respuesta->setvalue(random_int(0, 5));
-                    $respuesta->setPregunta($pregunta);
-                    $manager->persist($respuesta);
+                    $answer = new Answer();
+                    $answer->setText('Answer '.$h.' de la question '.$j.' de la poll '.$i);
+                    $answer->setvalue(random_int(0, 5));
+                    $answer->setQuestion($question);
+                    $manager->persist($answer);
                 }
             }
             for ($j = 1; $j <= 3; ++$j) {
-                $resultado = new Resultado();
-                $resultado->setText('Resultado '.$j);
-                $resultado->setImage('lisa.jpg');
-                $resultado->setExplanation('Explanation '.$j);
-                $resultado->setMinVal(random_int(0, 10));
-                $resultado->setMaxVal(random_int(10, 20));
-                $resultado->setEncuesta($encuesta);
-                $manager->persist($resultado);
+                $result = new Result();
+                $result->setText('Result '.$j);
+                $result->setImage('lisa.jpg');
+                $result->setExplanation('Explanation '.$j);
+                $result->setMinVal(random_int(0, 10));
+                $result->setMaxVal(random_int(10, 20));
+                $result->setPoll($poll);
+                $manager->persist($result);
             }
             for ($j = 1; $j <= 4; ++$j) {
-                $coment = new Comentario();
-                $coment->setText('Comentario '.$j.' de la encuesta '.$i);
-                $coment->setEncuesta($encuesta);
+                $coment = new Comment();
+                $coment->setText('Comment '.$j.' de la poll '.$i);
+                $coment->setPoll($poll);
                 $manager->persist($coment);
             }
         }
 
         for ($i = 1; $i <= 10; ++$i ) {
-            $premio = new Premio();
-            $premio->setTitle('Viaje a Hawai para '.$i.' persona(s)');
-            $premio->setImagen('');
-            $manager->persist($premio);
+            $prize = new Prize();
+            $prize->setTitle('Viaje a Hawai para '.$i.' persona(s)');
+            $prize->setImagen('');
+            $manager->persist($prize);
 
-            $sorteo = new Sorteo();
-            $sorteo->setImg('');
-            $sorteo->setFecha(new \DateTime());
-            $sorteo->setPremio($premio);
-            $manager->persist($sorteo);
+            $lottery = new Lottery();
+            $lottery->setImg('');
+            $lottery->setFecha(new \DateTime());
+            $lottery->setPrize($prize);
+            $manager->persist($lottery);
             for ($j = 1; $j <= 10; ++$j ) {
-                $usuario = new Usuario();
-                $usuario->setEmail('usuario'.$j.'.'.$i.'@gmail.com');
-                $usuario->setNombre('Usuario '.$j.'.'.$i);
+                $user = new User();
+                $user->setEmail('user'.$j.'.'.$i.'@gmail.com');
+                $user->setNombre('User '.$j.'.'.$i);
                 $coded = password_hash('1234', PASSWORD_BCRYPT);
-                $usuario->setPassword($coded);
-                $usuario->addSorteo($sorteo);
-                $manager->persist($usuario);
+                $user->setPassword($coded);
+                $user->addLottery($lottery);
+                $manager->persist($user);
             }
             $hoy = new \DateTimeImmutable();
-            if ($sorteo->getFecha() <= $hoy) {
-                $usuarios_sorteo = $sorteo->getUsuarios();
-                $ganador = $usuarios_sorteo[random_int(0, \count($usuarios_sorteo) - 1)];
+            if ($lottery->getFecha() <= $hoy) {
+                $users_lottery = $lottery->getUsers();
+                $ganador = $users_lottery[random_int(0, \count($users_lottery) - 1)];
 
                 try {
-                    $sorteo->setGanador($ganador);
+                    $lottery->setGanador($ganador);
                 } catch (GanadorNotSettedException $gnse) {
                     dump($gnse->getMessage());
                 }
-                $manager->persist($sorteo);
+                $manager->persist($lottery);
             }
         }
 

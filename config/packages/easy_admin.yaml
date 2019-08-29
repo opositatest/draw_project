@@ -9,52 +9,52 @@ easy_admin:
   design:
     brand_color: 'purple'
   entities:
-    Encuesta:
-      class: App\Entity\Encuesta
-      label: 'Encuesta'
+    Poll:
+      class: App\Entity\Poll
+      label: 'Poll'
       form:
         fields: ['title', 'img']
 
-    Pregunta:
-      class: App\Entity\Pregunta
-      label: 'Pregunta'
+    Question:
+      class: App\Entity\Question
+      label: 'Question'
       form:
-        fields: ['image', 'text', 'encuesta']
+        fields: ['image', 'text', 'poll']
 
-    Comentario: 
-      class: App\Entity\Comentario
-      label: 'Comentario'
+    Comment: 
+      class: App\Entity\Comment
+      label: 'Comment'
 
-    Premio:
-      class: App\Entity\Premio
-      label: 'Premio'
+    Prize:
+      class: App\Entity\Prize
+      label: 'Prize'
       form:
         fields: ['title', 'imagen']
 
-    Respuesta:
-      class: App\Entity\Respuesta
-      label: 'Respuesta'
+    Answer:
+      class: App\Entity\Answer
+      label: 'Answer'
       form:
         fields:
           - text
           - value
-          - { property: pregunta, type_options: { choice_label: 'text' } }
-    Resultado:
-      class: App\Entity\Resultado
-      label: 'Resultado'
+          - { property: question, type_options: { choice_label: 'text' } }
+    Result:
+      class: App\Entity\Result
+      label: 'Result'
       form:
-        fields: ['text', 'image', 'explanation', 'minVal', 'maxVal', 'encuesta']
-    Sorteo: 
-      class: App\Entity\Sorteo
-      label: 'Sorteo'
-      help: 'Para añadir un ganador al sorteo editalo una vez creado!'
+        fields: ['text', 'image', 'explanation', 'minVal', 'maxVal', 'poll']
+    Lottery: 
+      class: App\Entity\Lottery
+      label: 'Lottery'
+      help: 'Para añadir un ganador al lottery editalo una vez creado!'
       form:
-        fields: ['img', 'fecha', 'premio']
+        fields: ['img', 'fecha', 'prize']
       edit:
         fields: ['ganador']
-    Usuario:
-      class: App\Entity\Usuario
-      label: 'Usuario'
+    User:
+      class: App\Entity\User
+      label: 'User'
       form:
         fields: ['nombre', 'email', 'password']
 

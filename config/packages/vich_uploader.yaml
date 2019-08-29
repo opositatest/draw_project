@@ -1,10 +1,10 @@
 parameters:
-    app.path.encuesta_imgs: /img
+    app.path.poll_imgs: /img
 
 vich_uploader:
     db_driver: orm
 
     mappings:
-        encuesta_imgs:
-            uri_prefix: '%app.path.encuesta_imgs%'
+        poll_imgs:
+            uri_prefix: '%app.path.poll_imgs%'
             upload_destination: '%kernel.root_dir%/../img'

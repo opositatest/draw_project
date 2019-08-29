@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Sorteo;
-use App\Entity\Usuario;
+use App\Entity\Lottery;
+use App\Entity\User;
 use App\Forms\LoginType;
 use App\Forms\RegisterType;
-use App\Manager\EncuestaManager;
-use App\Manager\SorteoManager;
-use App\Manager\UsuarioManager;
+use App\Manager\PollManager;
+use App\Manager\LotteryManager;
+use App\Manager\UserManager;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +22,11 @@ class UserController extends BaseController
 {
 
     /**
-     * @Route("/sorteo/registro", name="register")
+     * @Route("/lottery/registro", name="register")
      */
-    public function register(Request $request, UsuarioManager $usuarioManager)
+    public function register(Request $request, UserManager $userManager)
     {
-        $user = new Usuario();
+        $user = new User();
 
         $form = $this->createForm(RegisterType::class, $user);
 
@@ -34,7 +34,7 @@ class UserController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            $usuarioManager->newUser($user);
+            $userManager->newUser($user);
 
             return $this->redirectToRoute('home');
         }
@@ -42,7 +42,7 @@ class UserController extends BaseController
         return $this->render('user/register.html.twig', ['form' => $form->createView()]);
     }
     /**
-     * @Route("/sorteo/login", name="app_login")
+     * @Route("/lottery/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

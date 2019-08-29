@@ -1,0 +1,24 @@
+{% extends 'poll/index.html.twig' %}
+
+{% block body_content %}
+    {{ form_start(form) }}
+        {{ form_row(form.text) }}
+        {{ form_row(form.image) }}
+        {{ form_row(form.poll) }}
+        <ul id="answers-list"
+            data-prototype="{{ form_widget(form.answers.vars.prototype)|e('html_attr') }}"
+            data-widget-tags="{{ '<li></li>'|e }}"
+            data-widget-counter="{{ form.children|length }}"
+        >
+        {% for answerField in form.answers %}
+            <li>
+                <label>Answer</label>{{ form_widget(answerField) }}
+            </li>
+        {% endfor %}
+        </ul>
+        <button type="button" onclick="addForm()">Otra answer</button>
+        <button type="submit">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javaScript %}<script src="{{ asset('js/add-form.js') }}"></script>{% endblock %}

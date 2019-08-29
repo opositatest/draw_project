@@ -883,7 +883,7 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
 .header-zonaprivada a {
     color:#000;
 }
-.header-usuario {
+.header-user {
     display:inline-block;
     font-size:11px;
     text-transform: uppercase;
@@ -891,10 +891,10 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
     background: url('../bundles/opostheme/images/ico_user.png') no-repeat left center;
     padding:0 0 0 18px;
 }
-.header-usuario a {
+.header-user a {
     color:#000;
 }
-/*.home .header-usuario {
+/*.home .header-user {
     font-size:15px;
     font-weight:400;
     background: url('../images/ico_user-2.png') no-repeat left center;
@@ -903,7 +903,7 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
     margin:10px 0 0 30px;
 }*/
 
-.header-usuario-login {
+.header-user-login {
     font-size:15px;
     font-weight:400;
     background: url('../bundles/opostheme/images/ico_user-2-b.png') no-repeat left center;
@@ -913,44 +913,44 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
     text-transform: uppercase;
 
 }
-.home .header-usuario-login {
+.home .header-user-login {
     background: url('../bundles/opostheme/images/ico_user-2.png') no-repeat left center;
 }
 
-/*.home .fixed .header-usuario {
+/*.home .fixed .header-user {
     background: url('../images/ico_user.png') no-repeat left center;
 }*/
-.fixed .header-usuario-login {
+.fixed .header-user-login {
     background: url('../bundles/opostheme/images/ico_user.png') no-repeat left center;
 }
 
-.header-usuario-login a {
+.header-user-login a {
     color:#000;
 }
-/*.home .header-usuario a {
+/*.home .header-user a {
     color:#fff;
 }
-.home .fixed .header-usuario a {
+.home .fixed .header-user a {
     color:#000;
 }
-.home .header-usuario a:hover {
+.home .header-user a:hover {
     text-decoration: none;
 }*/
 
-.home .header-usuario-login a {
+.home .header-user-login a {
     color:#fff;
 }
-.home .fixed .header-usuario-login a {
+.home .fixed .header-user-login a {
     color:#000;
 }
-.header-usuario-login a:hover {
+.header-user-login a:hover {
     text-decoration: none;
 }
 
 
 
 
-.header-usuario a.logout {
+.header-user a.logout {
     width:15px;
     height:14px;
     display: inline-block;
@@ -1279,7 +1279,7 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
 #elegir_opositatest h3.ahorra_tiempo span {
     background: url('../images/ico_tiempo_home.png') no-repeat center center;
 }
-#elegir_opositatest h3.respuestas_justificadas span {
+#elegir_opositatest h3.answers_justificadas span {
     background: url('../images/ico_justificadas_home.png') no-repeat center center;
 }
 #elegir_opositatest h3.actualizacion_constante span {
@@ -1304,7 +1304,7 @@ label.checkbox-inline input[type=checkbox]:checked+.checkbox-material .check {
 #elegir_opositatest .bloque_ico .ico.ico_ahorra_tiempo {
     background: url('../bundles/opostheme/images/ico_tiempo_home.png') no-repeat center center;
 }
-#elegir_opositatest .bloque_ico .ico.ico_respuestas_justificadas {
+#elegir_opositatest .bloque_ico .ico.ico_answers_justificadas {
     background: url('../bundles/opostheme/images/ico_justificadas_home.png') no-repeat center center;
 }
 #elegir_opositatest .bloque_ico .ico.ico_actualizacion_constante {
@@ -1741,10 +1741,10 @@ form.registro{
 .fixed.test-2 .contenido  {
     padding:110px 0 70px 0;
 }
-.test-2.test-resultados .contenido{
+.test-2.test-results .contenido{
     padding:50px 0 0 0;
 }
-.fixed.test-2.test-resultados .contenido{
+.fixed.test-2.test-results .contenido{
     padding:110px 0 0 0;
 }
 
@@ -2026,8 +2026,8 @@ form.registro{
     line-height: 22px;
 }
 
-.buscador-item .data-preguntas {
-    background: url('../bundles/opostheme/images/ico_buscador_preguntas.png') no-repeat left center;
+.buscador-item .data-questions {
+    background: url('../bundles/opostheme/images/ico_buscador_questions.png') no-repeat left center;
     padding:0 0 0 18px;
     display: inline-block;
     margin:0 15px 0 0;
@@ -2233,11 +2233,11 @@ form.registro{
 
 
 /* Test */
-.area-personal .contenido h2.usuario {
+.area-personal .contenido h2.user {
     font-weight: 300;
     font-size:22px;
 }
-.area-personal .contenido h2.usuario span {
+.area-personal .contenido h2.user span {
     color:#ffb606;
 }
 
@@ -2371,7 +2371,7 @@ h2.examenes-personalizados {
     margin:0;
     /*padding:8px 0 5px 0;*/
 }
-.examen-panel-2 .input-gris.n_preguntas {
+.examen-panel-2 .input-gris.n_questions {
     width:75px;
     text-align: center;
     /*margin:0 0 0 10px;*/
@@ -2444,7 +2444,7 @@ h2.examenes-personalizados {
     background: #fff;
     padding:35px;
 }
-.area-personal-contenido.resultado-test {
+.area-personal-contenido.result-test {
     padding:0;
 }
 .area-personal-contenido h2 {
@@ -2508,7 +2508,7 @@ h2.examenes-personalizados {
 .area-personal-contenido .estadistica.examenes .ico {
     border-color:#e3b6f0;
 }
-.area-personal-contenido .estadistica.preguntas .ico {
+.area-personal-contenido .estadistica.questions .ico {
     border-color:#d7ccc8;
 }
 .area-personal-contenido .estadistica.tiempo .ico {
@@ -2535,8 +2535,8 @@ h2.examenes-personalizados {
 .area-personal-contenido .estadistica.examenes .ico span {
     background:url('../bundles/opostheme/images/ico-stats-examenes.png') no-repeat center top;
 }
-.area-personal-contenido .estadistica.preguntas .ico span {
-    background:url('../bundles/opostheme/images/ico-stats-preguntas.png') no-repeat center top;
+.area-personal-contenido .estadistica.questions .ico span {
+    background:url('../bundles/opostheme/images/ico-stats-questions.png') no-repeat center top;
 }
 .area-personal-contenido .estadistica.tiempo .ico span {
     background:url('../bundles/opostheme/images/ico-stats-tiempo.png') no-repeat center top;
@@ -3096,18 +3096,18 @@ body.test-1 .contenido {
 }
 
 .test-2 .wrapper-menus/*,
-.test-resultados .wrapper-menus*/{
+.test-results .wrapper-menus*/{
     position:relative;
     top:0;
 }
 
 .test-2 .header-tests/*,
-.test-resultados .header-tests*/{
+.test-results .header-tests*/{
     position:relative;
     top:0;
 }
 .test-2.fixed .header-tests/*,
-.test-resultados.fixed .header-tests*/{
+.test-results.fixed .header-tests*/{
     position:fixed;
     top:0;
 
@@ -3121,14 +3121,14 @@ body.test-1 .contenido {
     font-weight: 600;
     font-size:18px;
 }
-.header-tests .n_preguntas {
+.header-tests .n_questions {
     /*text-transform: uppercase;*/
     text-align: right;
     font-weight: 600;
 }
 
 
-.pregunta-item {
+.question-item {
     /*modificado pablo original margin:0 0 70px 0;*/
     margin:0 0 40px 0;
     width:100%;
@@ -3136,10 +3136,10 @@ body.test-1 .contenido {
     display: block;
     overflow: visible;
 }
-.pregunta-item:last-child {
+.question-item:last-child {
     margin:0;
 }
-.pregunta-item .pregunta-header {
+.question-item .question-header {
     /*modificado pablo original:  border-bottom:1px solid #c7c7c7; padding:0 0 15px 0; margin:0 0 35px 0; */
     /*border-bottom:1px solid #c7c7c7;*/
     padding:0 0 5px 0;
@@ -3148,29 +3148,29 @@ body.test-1 .contenido {
     float: left;
     display: block;
 }
-.pregunta-item .pregunta-options{
+.question-item .question-options{
     overflow: visible;
     width:100%;
     float: left;
 }
-.pregunta-item .radio{
+.question-item .radio{
     margin:5px 0;
     overflow: visible;
 }
 
-.pregunta-item .pregunta-header p {
+.question-item .question-header p {
     margin:0;
 }
-.pregunta-item .pregunta-tit {
+.question-item .question-tit {
     font-size:17px;
     font-weight: 600;
 }
-.pregunta-item .pregunta-header p.pregunta-tema {
+.question-item .question-header p.question-tema {
     font-size:14px;
     text-align: right;
     margin:0 0 5px 0;
 }
-.pregunta-item .radio label {
+.question-item .radio label {
     font-size: 15px;
     line-height: 20px;
     /*modificado para igualar con el estilo anterior pablo: color: #000;*/
@@ -3178,8 +3178,8 @@ body.test-1 .contenido {
     font-weight: 400;
 }
 
-.pregunta-item .radio .circle,
-.pregunta-item label.radio-inline .circle {
+.question-item .radio .circle,
+.question-item label.radio-inline .circle {
     border: 2px solid rgba(0,0,0,.25);
     height: 15px;
     width: 15px;
@@ -3188,32 +3188,32 @@ body.test-1 .contenido {
     /*margin-top:3px;*/
 }
 
-.pregunta-item .radio input[type=radio]:checked~.check,
-.pregunta-item label.radio-inline input[type=radio]:checked~.check {
+.question-item .radio input[type=radio]:checked~.check,
+.question-item label.radio-inline input[type=radio]:checked~.check {
     background-color: #ffb606;
     /*modificado pablo*/
     /*margin-top:3px;*/
 }
 
-.pregunta-item .radio input[type=radio]:checked~.circle,
-.pregunta-item label.radio-inline input[type=radio]:checked~.circle {
+.question-item .radio input[type=radio]:checked~.circle,
+.question-item label.radio-inline input[type=radio]:checked~.circle {
     border-color: #000;
 }
 
-.pregunta-item label.error {
+.question-item label.error {
     color:#d51f1f;
 }
-.pregunta-item label.correct {
+.question-item label.correct {
     color:#89c300;
 }
 
-.resultado-test .txt-01 {
+.result-test .txt-01 {
     font-size:24px;
     line-height: 24px;
     font-weight: 400;
     margin:10px 0;
 }
-.resultado-test .txt-02 {
+.result-test .txt-02 {
     font-size:40px;
     line-height: 40px;
     font-weight: 600;
@@ -3249,7 +3249,7 @@ body.test-1 .contenido {
     color:#00a5e4;
 }
 
-.pregunta-item .ver-solucion {
+.question-item .ver-solucion {
     margin:15px 0 0 10px;
 }
 
@@ -4122,15 +4122,15 @@ footer .salir-test span.cerrar-test {
     filter: none;
 }
 
-.home .header-usuario-login {
+.home .header-user-login {
     background: none;
 }
 
-.fixed .header-usuario-login {
+.fixed .header-user-login {
     background: none;
 }
 
-.header-usuario-login {
+.header-user-login {
     background: none !important;
     margin: 10px 0 0 0px;
 }
@@ -4139,13 +4139,13 @@ footer .salir-test span.cerrar-test {
 }
 
 @media (max-width: 992px) {
-    .header-usuario-login, .home .header-usuario-login {
+    .header-user-login, .home .header-user-login {
         padding: 10px 20px 10px 20px !important;
 
     }
 }
 
-.header-usuario {
+.header-user {
     background: none;
 }
 
@@ -4259,7 +4259,7 @@ footer .salir-test span.cerrar-test {
         padding: 68px 0 0 0;
     }
 
-    .header-usuario-login   {
+    .header-user-login   {
         margin: 10px 0 0 10px;
     }
     .header-test{
@@ -4414,7 +4414,7 @@ footer .salir-test span.cerrar-test {
         color:#fff;
     }
 
-    /*.home .header-usuario {
+    /*.home .header-user {
         float:none;
         display:block;
         border-bottom:1px solid #ffd15c;
@@ -4429,14 +4429,14 @@ footer .salir-test span.cerrar-test {
         -o-transition: all 500ms ease;
         transition: all 500ms ease;
     }
-    .home .fixed .header-usuario {
+    .home .fixed .header-user {
         background: url('../images/ico_user-2.png') no-repeat 20px center;
     }
-    .home .header-usuario:hover {
+    .home .header-user:hover {
         background-color:#000;
     }
 
-    .home .fixed .header-usuario a {
+    .home .fixed .header-user a {
         color: #fff;
     }*/
     .home .fixed .header-test {
@@ -4470,8 +4470,8 @@ footer .salir-test span.cerrar-test {
 
 
 
-    .header-usuario-login,
-    .home .header-usuario-login {
+    .header-user-login,
+    .home .header-user-login {
         float:none;
         display:block;
         border-bottom:1px solid #ffd15c;
@@ -4486,15 +4486,15 @@ footer .salir-test span.cerrar-test {
         -o-transition: all 500ms ease;
         transition: all 500ms ease;
     }
-    .header-usuario-login:hover {
+    .header-user-login:hover {
         background: #000 url('../bundles/opostheme/images/ico_user-2.png') no-repeat 20px center;
     }
-    .header-usuario-login a,
-    .home .fixed .header-usuario-login a {
+    .header-user-login a,
+    .home .fixed .header-user-login a {
         color:#fff;
     }
 
-    .header-usuario-login a:hover {
+    .header-user-login a:hover {
         color:#fff;
         background: #000;
 
@@ -4706,7 +4706,7 @@ footer .salir-test span.cerrar-test {
         margin:0 auto;
     }
     #elegir_opositatest .bloque_ico .ico.ico_ahorra_tiempo,
-    #elegir_opositatest .bloque_ico .ico.ico_respuestas_justificadas,
+    #elegir_opositatest .bloque_ico .ico.ico_answers_justificadas,
     #elegir_opositatest .bloque_ico .ico.ico_actualizacion_constante,
     #elegir_opositatest .bloque_ico .ico.ico_seguimiento_personalizado {
         background-size:40px auto;
@@ -4804,7 +4804,7 @@ footer .salir-test span.cerrar-test {
     .header-zonaprivada {
         margin-left: 4px;
     }
-    .header-usuario a.logout {
+    .header-user a.logout {
         margin: 0 0 0 2px;
     }
 
@@ -5090,11 +5090,11 @@ footer .salir-test span.cerrar-test {
     .header-tests strong {
         font-size:13px;
     }
-    .header-tests .n_preguntas {
+    .header-tests .n_questions {
         margin:5px 0 0 0;
         text-align: left;
     }
-    .pregunta-item .pregunta-header p.pregunta-tema {
+    .question-item .question-header p.question-tema {
         /*margin:15px 0 0 0;*/
     }
     .pre-footer {
@@ -6881,7 +6881,7 @@ a.btn_09:hover {
     float:right;
 }
 
-.pregunta-extras .derogada {
+.question-extras .derogada {
     color: #d51f1f; /*copied from style applied to .table td.rojo*/
     border-left: 5px solid #d51f1f;
     margin-bottom: 0px;
@@ -6900,17 +6900,17 @@ a.btn_09:hover {
     cursor: pointer;
 }
 
-.pregunta-item .radio label, .pregunta-item label.radio-inline {
+.question-item .radio label, .question-item label.radio-inline {
     cursor: pointer;
     padding-left: 35px;
     position: relative;
 }
 
-.pregunta-item label {
+.question-item label {
     display: inline;
 }
 
-.pregunta-item {
+.question-item {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -7185,10 +7185,10 @@ Add in the next realease
     }
 }
 
-.pregunta-item .radio-2 input[type="radio"] {
+.question-item .radio-2 input[type="radio"] {
     margin-right: 10px;
 }
-.pregunta-item .radio-2 label {
+.question-item .radio-2 label {
     color: #000;
     font-size: 15px;
     font-weight: 400;
@@ -7250,10 +7250,10 @@ Add in the next realease
     padding: 0 0 15px 0;
 }
 
-.pregunta-item .radio-2 input[type=radio]{
+.question-item .radio-2 input[type=radio]{
     margin-right:10px;
 }
-.pregunta-item .radio-2 label  {
+.question-item .radio-2 label  {
     font-size: 15px;
     line-height: 20px;
     color: #000;

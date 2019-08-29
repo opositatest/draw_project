@@ -1,5 +1,5 @@
 function addForm(){
-    const list = window.document.getElementById('respuestas-list');
+    const list = window.document.getElementById('answers-list');
     let prototype = list.getAttribute('data-prototype');
     let counter = list.children.length;
 

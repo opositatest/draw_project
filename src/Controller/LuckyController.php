@@ -17,7 +17,7 @@ class LuckyController extends AbstractController
     public function number()
     {
 //        $entityManager = $this->getDoctrine()->getManager();
-//        $encuesta = $entityManager->getRepository(Encuesta::class)->find($id);
+//        $poll = $entityManager->getRepository(Poll::class)->find($id);
 
         return $this->render(
             'basic.html'

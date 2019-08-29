@@ -102,7 +102,7 @@ function corregir(){
 
             nota.text("Su nota es de " + calculoNota + " sobre " + total * scoreCorrectQuestions.val());
     } else {
-        alert("No puede haber un número negativo de preguntas.");
+        alert("No puede haber un número negativo de questions.");
     }
 }
 

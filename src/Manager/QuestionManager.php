@@ -2,29 +2,29 @@
 
 namespace App\Manager;
 
-use App\Entity\Pregunta;
-use App\Entity\Respuesta;
-use App\Repository\PreguntaRepository;
+use App\Entity\Question;
+use App\Entity\Answer;
+use App\Repository\QuestionRepository;
 
 class QuestionManager{
     private $questionRepository;
-    public function __construct(PreguntaRepository $questionRepository)
+    public function __construct(QuestionRepository $questionRepository)
     {
         $this->questionRepository = $questionRepository;
     }
 
-    public function addQuestion(Pregunta $question)
+    public function addQuestion(Question $question)
     {
-        $respuestas = $question->getRespuestas();
-        foreach($respuestas as $respuesta){
-            $newRespuesta = new Respuesta();
-            $newRespuesta->setPregunta($question);
-            $newRespuesta->setText($respuesta["text"]);
-            $newRespuesta->setValue($respuesta["value"]);
+        $answers = $question->getAnswers();
+        foreach($answers as $answer){
+            $newAnswer = new Answer();
+            $newAnswer->setQuestion($question);
+            $newAnswer->setText($answer["text"]);
+            $newAnswer->setValue($answer["value"]);
 
-            $respuesta = $newRespuesta;
+            $answer = $newAnswer;
         }
-        dump($respuestas);
+        dump($answers);
         $this->questionRepository->addQuestion($question);
     }
 }

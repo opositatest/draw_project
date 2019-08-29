@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Entity\Usuario;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Routing\RouterInterface;
@@ -24,7 +24,7 @@ class RedirectListener
         if ($this->isLoggedIn() && $event->isMasterRequest()) {
             $currentRoute = $event->getRequest()->attributes->get('_route');
             if ($this->isAuthenticatedUserOnAnonymousPage($currentRoute)) {
-                $response = new RedirectResponse($this->router->generate('sorteo'));
+                $response = new RedirectResponse($this->router->generate('lottery'));
                 $event->setResponse($response);
             }
         }
@@ -45,7 +45,7 @@ class RedirectListener
         }
         $user = $token->getUser();
 
-        return $user instanceof Usuario;
+        return $user instanceof User;
     }
 
     private function isAuthenticatedUserOnAnonymousPage($currentRoute)
@@ -61,7 +61,7 @@ class RedirectListener
     {
         return \in_array(
             $currentRoute,
-            ['encuesta', 'borrar', 'comentario', 'show-sorteo'],
+            ['poll', 'borrar', 'comment', 'show-lottery'],
             true
         );
     }

@@ -196,16 +196,16 @@ function aleatorio(a,b) {
 }
 
     // FUNCION PARA LA PIZARRA
-function sorteoPizarra(){
+function lotteryPizarra(){
     var aNames = [];    
     var retrievedUser = localStorage.getItem("aNames");
     if (retrievedUser == null){
-        alert("No hay datos guardados. Introduzca datos en el formulario para poder realizar el sorteo.");
+        alert("No hay datos guardados. Introduzca datos en el formulario para poder realizar el lottery.");
         return false;
     } else {
         aNames = JSON.parse(retrievedUser);
         if (aNames.length <= 1) {
-            alert("Introduzca al menos dos participantes para poder realizar el sorteo."); 
+            alert("Introduzca al menos dos participantes para poder realizar el lottery."); 
             return false;
         } else {
             var size = aNames.length;
@@ -222,7 +222,7 @@ function sorteoPizarra(){
                 var obj = {"texto": texto, "random": random, "email": email};
                 return obj;
             } else {
-                return sorteoPizarra();
+                return lotteryPizarra();
             }
             
         }
@@ -230,7 +230,7 @@ function sorteoPizarra(){
 }
 
     // FUNCION PARA LA REUNION
-function sorteoReunion(){
+function lotteryReunion(){
     var aNames = [];
 
     var retrievedUser = localStorage.getItem("aNames");
@@ -249,7 +249,7 @@ function sorteoReunion(){
         var obj = {"texto": texto, "random": random, "email": email};
         return obj;
     } else {
-        return sorteoReunion();
+        return lotteryReunion();
     }
 }
 
@@ -262,16 +262,16 @@ function limpiarConsola() {
 function setAreaText (){
     desmodificarFilas();
     limpiarConsola();
-    var a = sorteoPizarra();
+    var a = lotteryPizarra();
     if (a !== false) {
-        var b = sorteoReunion();
+        var b = lotteryReunion();
     }
     if (a===false) {
         return;
     }
     if (b.texto !== a.texto){
-        var text = "->OpositaTest: Iniciando sorteo de la pizarra...\n->OpositaTest: El ganador es ...\n->OpositaTest: " + a.texto;
-        text += "\n->OpositaTest: ...\n->OpositaTest: ...\n->OpositaTest: Iniciando sorteo de la reunión ...\n->OpositaTest: El ganador es ...\n->OpositaTest: " + b.texto
+        var text = "->OpositaTest: Iniciando lottery de la pizarra...\n->OpositaTest: El ganador es ...\n->OpositaTest: " + a.texto;
+        text += "\n->OpositaTest: ...\n->OpositaTest: ...\n->OpositaTest: Iniciando lottery de la reunión ...\n->OpositaTest: El ganador es ...\n->OpositaTest: " + b.texto
          + "\n->Opositatest: Hasta la semana que viene!";
         //$("#out").val(text);
         escribir("out", text, 50);
